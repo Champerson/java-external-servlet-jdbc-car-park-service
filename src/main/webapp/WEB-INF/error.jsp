@@ -1,0 +1,17 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Error page</title>
+    <fmt:requestEncoding value="UTF-8" />
+    <fmt:setLocale value="${sessionScope.locale}" />
+    <fmt:setBundle basename="i18n.content" var="bundle"/>
+</head>
+    <body>
+        <h1><fmt:message key="error.page.title" bundle="${bundle}"/></h1>
+        <fmt:message key="${errorMessage}" bundle="${bundle}"/>
+    </body>
+</html>

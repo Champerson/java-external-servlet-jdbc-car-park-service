@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<display-name>Car Park</display-name>
+
+    <servlet>
+        <servlet-name>GlobalServlet</servlet-name>
+        <servlet-class>com.car.park.service.controller.GlobalServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GlobalServlet</servlet-name>
+        <url-pattern>/controller</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>GlobalExceptionHandlerFilter</filter-name>
+        <filter-class>com.car.park.service.controller.filters.GlobalExceptionHandlerFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>LocalizationFilter</filter-name>
+        <filter-class>com.car.park.service.controller.filters.LocalizationFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.car.park.service.controller.filters.AuthenticationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>GlobalExceptionHandlerFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>LocalizationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
