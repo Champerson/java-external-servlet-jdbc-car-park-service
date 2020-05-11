@@ -18,19 +18,31 @@
         <form name="edit-user" action="./controller" method="post">
             <p>
                 <b><fmt:message key="name.label" bundle="${bundle}"/></b><br>
-                <input type="text" name="name" value="${user.name}">            <!--ADD VALIDATION-->
+                <c:if test="${not empty validationErrors.name}">
+                    <fmt:message key="${validationErrors.name}" bundle="${bundle}"/><br>
+                </c:if>
+                <input type="text" name="name" value="${user.name}">
             </p>
             <p>
                 <b><fmt:message key="email.label" bundle="${bundle}"/></b><br>
-                <input type="text" name="email" value="${user.email}">          <!--ADD VALIDATION-->
+                <c:if test="${not empty validationErrors.email}">
+                    <fmt:message key="${validationErrors.email}" bundle="${bundle}"/><br>
+                </c:if>
+                <input type="text" name="email" value="${user.email}">
             </p>
             <p>
                 <b><fmt:message key="phone.label" bundle="${bundle}"/></b><br>
-                <input type="text" name="phone" value="${user.phone}">          <!--ADD VALIDATION-->
+                <c:if test="${not empty validationErrors.phone}">
+                    <fmt:message key="${validationErrors.phone}" bundle="${bundle}"/><br>
+                </c:if>
+                <input type="text" name="phone" value="${user.phone}">
             </p>
             <p>
                 <b><fmt:message key="age.label" bundle="${bundle}"/></b><br>
-                <input type="text" name="age" value="${user.age}">              <!--ADD VALIDATION-->
+                <c:if test="${not empty validationErrors.age}">
+                    <fmt:message key="${validationErrors.age}" bundle="${bundle}"/><br>
+                </c:if>
+                <input type="text" name="age" value="${user.age}">
             </p>
             <p>
                 <input type="submit" value="<fmt:message key="save.button" bundle="${bundle}"/>">
@@ -41,10 +53,16 @@
             <p><b><fmt:message key="change.password.title" bundle="${bundle}"/></b></p>
             <p>
                 <b><fmt:message key="old.password.label" bundle="${bundle}"/></b><br>
+                <c:if test="${not empty validationErrors.password}">
+                    <fmt:message key="${validationErrors.password}" bundle="${bundle}"/><br>
+                </c:if>
                 <input type="text" name="oldPassword">
             </p>
             <p>
                 <b><fmt:message key="new.password.label" bundle="${bundle}"/></b><br>
+                <c:if test="${not empty validationErrors.password}">
+                    <fmt:message key="${validationErrors.password}" bundle="${bundle}"/><br>
+                </c:if>
                 <input type="text" name="newPassword">
             </p>
             <p>
@@ -76,7 +94,7 @@
                         <td>${user.assignment.bus.localizedColour[locale]}</td>
                     </tr>
                 </table>
-                <table>
+                <table border="3">
                     <caption><fmt:message key="user.assigned.route.caption.title" bundle="${bundle}"/></caption>
                     <tr>
                         <th><fmt:message key="bus.number.title" bundle="${bundle}"/></th>

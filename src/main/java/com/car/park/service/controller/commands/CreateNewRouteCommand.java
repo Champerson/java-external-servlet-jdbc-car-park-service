@@ -1,6 +1,8 @@
 package com.car.park.service.controller.commands;
 
 import com.car.park.service.controller.Command;
+import com.car.park.service.controller.validation.RouteValidationErrors;
+import com.car.park.service.controller.validation.RouteValidationErrorsBuilder;
 import com.car.park.service.dao.RouteDao;
 import com.car.park.service.dao.support.TransactionManager;
 import com.car.park.service.model.Route;
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import static java.lang.Integer.parseInt;
 
 public class CreateNewRouteCommand implements Command {
+
+    private static final String NEW_ROUTE_PAGE = "WEB-INF/new-route.jsp";
 
     private final RouteDao routeDao;
     private final TransactionManager transactionManager;
@@ -24,14 +28,32 @@ public class CreateNewRouteCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        Route route = new Route();
-        route.setNumber(request.getParameter("number"));
-        route.setLength(parseInt(request.getParameter("length")));
-        route.getLocalizedDescription().put("en_EN", request.getParameter("descriptionEn"));
-        route.getLocalizedDescription().put("uk_UA", request.getParameter("descriptionUa"));
-        routeDao.create(route);
-        transactionManager.commit();
+        String number = request.getParameter("number");
+        String length = request.getParameter("length");
+        String descriptionEn = request.getParameter("descriptionEn");
+        String descriptionUa = request.getParameter("descriptionUa");
 
-        return getAllRoutesCommand.execute(request, response);
+        RouteValidationErrors routeValidationErrors = new RouteValidationErrorsBuilder()
+                .validateNumber(number)
+                .validateLength(length)
+                .validateDescriptionEn(descriptionEn)
+                .validateDescriptionUa(descriptionUa)
+                .errors();
+
+        if (routeValidationErrors.isPresent()) {
+            request.setAttribute("validationErrors", routeValidationErrors);
+            return NEW_ROUTE_PAGE;
+        } else {
+            Route route = new Route();
+            route.setNumber(number);
+            route.setLength(parseInt(length));
+            route.getLocalizedDescription().put("en_EN", descriptionEn);
+            route.getLocalizedDescription().put("uk_UA", descriptionUa);
+            routeDao.create(route);
+            transactionManager.commit();
+
+
+            return getAllRoutesCommand.execute(request, response);
+        }
     }
 }

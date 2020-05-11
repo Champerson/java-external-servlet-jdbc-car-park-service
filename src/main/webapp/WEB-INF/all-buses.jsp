@@ -14,22 +14,73 @@
         <jsp:include page="logout.jsp"/>
         <jsp:include page="locale.jsp"/>
         <h1><fmt:message key="buses.page.title" bundle="${bundle}"/></h1>
+
+        <p>
+            <c:if test="${not empty validationErrors.number}">
+                <fmt:message key="${validationErrors.number}" bundle="${bundle}"/>
+            </c:if>
+
+            <c:if test="${not empty validationErrors.model}">
+                <fmt:message key="${validationErrors.model}" bundle="${bundle}"/>
+            </c:if>
+
+            <c:if test="${not empty validationErrors.passengersCapacity}">
+                <fmt:message key="${validationErrors.passengersCapacity}" bundle="${bundle}"/>
+            </c:if>
+
+            <c:if test="${not empty validationErrors.mileage}">
+                <fmt:message key="${validationErrors.mileage}" bundle="${bundle}"/>
+            </c:if>
+
+            <c:if test="${not empty validationErrors.colourEn}">
+                <fmt:message key="${validationErrors.colourEn}" bundle="${bundle}"/>
+            </c:if>
+
+            <c:if test="${not empty validationErrors.colourUa}">
+                <fmt:message key="${validationErrors.colourUa}" bundle="${bundle}"/>
+            </c:if>
+
+            <c:if test="${not empty validationErrors.notesEn}">
+                <fmt:message key="${validationErrors.notesEn}" bundle="${bundle}"/>
+            </c:if>
+
+            <c:if test="${not empty validationErrors.notesUa}">
+                <fmt:message key="${validationErrors.notesUa}" bundle="${bundle}"/>
+            </c:if>
+        </p>
+
         <table border="3">
             <caption>Buses</caption>
             <c:forEach items="${buses}" var="bus">
                 <tr>
                     <td>
                         <form name="edit-bus" action="./controller" method="post">
-                            <input name="number" type="text" value="${bus.number}">                         <!--ADD VALIDATION-->
-                            <input name="model" type="text" value="${bus.model}">                           <!--ADD VALIDATION-->
-                            <input name="passengersCapacity" type="text" value="${bus.passengersCapacity}"> <!--ADD VALIDATION-->
-                            <input name="mileage" type="text" value="${bus.mileage}">                       <!--ADD VALIDATION-->
-                            <input name="colourEn" type="text" value="${bus.localizedColour['en_EN']}">     <!--ADD VALIDATION-->
-                            <input name="colourUa" type="text" value="${bus.localizedColour['uk_UA']}">     <!--ADD VALIDATION-->
-                            <input name="notesEn" type="text" value="${bus.localizedNotes['en_EN']}">       <!--ADD VALIDATION-->
-                            <input name="notesUa" type="text" value="${bus.localizedNotes['uk_UA']}">       <!--ADD VALIDATION-->
-                            <input name="busId" type="hidden" value="${bus.id}">
-                            <input name="command" type="hidden" value="edit_bus">
+                            <fmt:message key="bus.number.label" bundle="${bundle}"/>
+                            <input type="text" name="number" value="${bus.number}">
+
+                            <fmt:message key="bus.model.label" bundle="${bundle}"/>
+                            <input type="text" name="model" value="${bus.model}">
+
+                            <fmt:message key="bus.capacity.label" bundle="${bundle}"/>
+                            <input type="text" name="passengersCapacity" value="${bus.passengersCapacity}">
+
+                            <fmt:message key="bus.mileage.label" bundle="${bundle}"/>
+                            <input type="text" name="mileage" value="${bus.mileage}">
+
+                            <fmt:message key="bus.colour.en.label" bundle="${bundle}"/>
+                            <input type="text" name="colourEn" value="${bus.localizedColour['en_EN']}">
+
+                            <fmt:message key="bus.colour.ua.label" bundle="${bundle}"/>
+                            <input type="text" name="colourUa" value="${bus.localizedColour['uk_UA']}">
+
+                            <fmt:message key="bus.notes.en.label" bundle="${bundle}"/>
+                            <input type="text" name="notesEn" value="${bus.localizedNotes['en_EN']}">
+
+                            <fmt:message key="bus.notes.ua.label" bundle="${bundle}"/>
+                            <input type="text" name="notesUa" value="${bus.localizedNotes['uk_UA']}">
+
+                            <input type="hidden" name="busId" value="${bus.id}">
+                            <input type="hidden" name="command" value="edit_bus">
                             <button><fmt:message key="save.button" bundle="${bundle}"/></button>
                         </form>
                     </td>

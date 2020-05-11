@@ -15,14 +15,33 @@
         <h1><fmt:message key="route.page.title" bundle="${bundle}"/> ${route.number}</h1>
         <form name="edit-route-name" action="./controller" method="post">
             <p>
-                <fmt:message key="route.number.label" bundle="${bundle}"/>
-                <input type="text" name="number" value="${route.number}"></br>                                <!--ADD VALIDATION-->
-                <fmt:message key="route.length.label" bundle="${bundle}"/>
-                <input type="text" name="length" value="${route.length}"></br>                                <!--ADD VALIDATION-->
-                <fmt:message key="route.description.en.label" bundle="${bundle}"/>
-                <input type="text" name="descriptionEn" value="${route.localizedDescription['en_EN']}"></br>  <!--ADD VALIDATION-->
-                <fmt:message key="route.description.ua.label" bundle="${bundle}"/>
-                <input type="text" name="descriptionUa" value="${route.localizedDescription['uk_UA']}">       <!--ADD VALIDATION-->
+                <fmt:message key="route.number.label" bundle="${bundle}"/><br>
+                <c:if test="${not empty validationErrors.number}">
+                    <fmt:message key="${validationErrors.number}" bundle="${bundle}"/><br>
+                </c:if>
+                <input type="text" name="number" value="${route.number}">
+            </p>
+            <p>
+                <fmt:message key="route.length.label" bundle="${bundle}"/><br>
+                <c:if test="${not empty validationErrors.length}">
+                    <fmt:message key="${validationErrors.length}" bundle="${bundle}"/><br>
+                </c:if>
+                <input type="text" name="length" value="${route.length}">
+            </p>
+            <p>
+                <fmt:message key="route.description.en.label" bundle="${bundle}"/><br>
+                <c:if test="${not empty validationErrors.descriptionEn}">
+                    <fmt:message key="${validationErrors.descriptionEn}" bundle="${bundle}"/><br>
+                </c:if>
+                <input type="text" name="descriptionEn" value="${route.localizedDescription['en_EN']}">
+            </p>
+            <p>
+                <fmt:message key="route.description.ua.label" bundle="${bundle}"/><br>
+                <c:if test="${not empty validationErrors.descriptionUa}">
+                    <fmt:message key="${validationErrors.descriptionUa}" bundle="${bundle}"/><br>
+                </c:if>
+                <input type="text" name="descriptionUa" value="${route.localizedDescription['uk_UA']}">
+
                 <input type="hidden" name="routeId" value="${route.id}">
                 <input type="hidden" name="command" value="edit_route">
             </p>

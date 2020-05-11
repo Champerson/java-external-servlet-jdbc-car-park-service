@@ -58,6 +58,11 @@ public class UserValidationErrors {
     }
 
     public boolean isPresent() {
-        return login != null || password != null || email != null || phone != null || name != null || age != null;
+        return login != null
+                || password != null
+                || email != null
+                || phone != null
+                || name != null
+                || age != null;
     }
 }

@@ -36,7 +36,8 @@
             </tr>
         </table>
             <c:if test="${not empty assignment}">
-                <table>
+                <br>
+                <table border="3">
                     <caption><fmt:message key="assignment.caption.title" bundle="${bundle}"/></caption>
                     <tr>
                         <th><fmt:message key="bus.number.title" bundle="${bundle}"/></th>
@@ -44,18 +45,14 @@
                     </tr>
                     <tr>
                         <td>${assignment.bus.number}</td>
-                        <td>${assignment.route.number})</td>
-                    </tr>
-                    <tr>
-                        <td>
-                         <form name="decline-assignment" action="./controller" method="post">
-                                <input type="hidden" name="command" value="edit_user_assignment_delete">
-                                <input type="hidden" name="userId" value="${user.id}">
-                                <p><button><b><fmt:message key="user.decline.assignment" bundle="${bundle}"/></b></button></p>
-                            </form>
-                        </td>
+                        <td>${assignment.route.number}</td>
                     </tr>
                 </table>
+                <form name="decline-assignment" action="./controller" method="post">
+                    <input type="hidden" name="command" value="edit_user_assignment_delete">
+                    <input type="hidden" name="userId" value="${user.id}">
+                    <button><b><fmt:message key="user.decline.assignment" bundle="${bundle}"/></b></button>
+                </form>
             </c:if>
     <br><jsp:include page="back.jsp"/>
     </body>

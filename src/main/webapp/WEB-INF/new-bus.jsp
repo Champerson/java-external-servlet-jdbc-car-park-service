@@ -12,25 +12,56 @@
 </head>
     <body>
         <jsp:include page="logout.jsp"/>
-        <h1><fmt:message key="bus.add.page.title" bundle="${bundle}"/></h1>
+        <h1><fmt:message key="bus.add.page.title" bundle="${bundle}"/>
         <form name="bus-creation" action="./controller" method="post">
             <p>
                 <fmt:message key="bus.number.label" bundle="${bundle}"/>
-                <input name="number" type="text">                               <!--ADD VALIDATION-->
+                <input name="number" type="text">
+                <c:if test="${not empty validationErrors.number}">
+                    <fmt:message key="${validationErrors.number}" bundle="${bundle}"/>
+                </c:if><br>
+
                 <fmt:message key="bus.model.label" bundle="${bundle}"/>
-                <input name="model" type="text">                                <!--ADD VALIDATION-->
+                <input name="model" type="text">
+                <c:if test="${not empty validationErrors.model}">
+                    <fmt:message key="${validationErrors.model}" bundle="${bundle}"/>
+                </c:if><br>
+
                 <fmt:message key="bus.capacity.label" bundle="${bundle}"/>
-                <input name="passengersCapacity" type="text">                   <!--ADD VALIDATION-->
+                <input name="passengersCapacity" type="text">
+                <c:if test="${not empty validationErrors.passengersCapacity}">
+                    <fmt:message key="${validationErrors.passengersCapacity}" bundle="${bundle}"/>
+                </c:if><br>
+
                 <fmt:message key="bus.mileage.label" bundle="${bundle}"/>
-                <input name="mileage" type="text">                              <!--ADD VALIDATION-->
+                <input name="mileage" type="text">
+                <c:if test="${not empty validationErrors.mileage}">
+                    <fmt:message key="${validationErrors.mileage}" bundle="${bundle}"/>
+                </c:if><br>
+
                 <fmt:message key="bus.colour.en.label" bundle="${bundle}"/>
-                <input name="colourEn" type="text">                             <!--ADD VALIDATION-->
+                <input name="colourEn" type="text"><br>
+                <c:if test="${not empty validationErrors.colourEn}">
+                    <fmt:message key="${validationErrors.colourEn}" bundle="${bundle}"/>
+                </c:if><br>
+
                 <fmt:message key="bus.colour.ua.label" bundle="${bundle}"/>
-                <input name="colourUa" type="text">                             <!--ADD VALIDATION-->
+                <input name="colourUa" type="text">
+                <c:if test="${not empty validationErrors.colourUa}">
+                    <fmt:message key="${validationErrors.colourUa}" bundle="${bundle}"/>
+                </c:if><br>
+
                 <fmt:message key="bus.notes.en.label" bundle="${bundle}"/>
-                <input name="notesEn" type="text">                              <!--ADD VALIDATION-->
+                <input name="notesEn" type="text">
+                <c:if test="${not empty validationErrors.notesEn}">
+                    <fmt:message key="${validationErrors.notesEn}" bundle="${bundle}"/>
+                </c:if><br>
+
                 <fmt:message key="bus.notes.ua.label" bundle="${bundle}"/>
-                <input name="notesUa" type="text">                              <!--ADD VALIDATION-->
+                <input name="notesUa" type="text">
+                <c:if test="${not empty validationErrors.notesUa}">
+                    <fmt:message key="${validationErrors.notesUa}" bundle="${bundle}"/>
+                </c:if>
             </p>
             <p>
                 <input type="submit" value="<fmt:message key="submit.button" bundle="${bundle}"/>">

@@ -7,7 +7,7 @@ import static org.apache.commons.lang3.ObjectUtils.isEmpty;
 
 public class Validator {
 
-    private final static String POSITIVE_NUMBER_REGEX = "^[1-9]{1,3}$";//from 1 to endless
+    private final static String POSITIVE_NUMBER_REGEX = "^[0-9]{1,20}$";//from 1 to endless
     private final static String ALPHABET_REGEX = "^[a-zA-Z]{1,20}$";//Green
 
     boolean isValidByRegex(String compareString, String regex) {
