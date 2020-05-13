@@ -37,8 +37,8 @@ public class EditRouteCommand implements Command {
         RouteValidationErrors routeValidationErrors = new RouteValidationErrorsBuilder()
                 .validateNumber(number)
                 .validateLength(length)
-                .validateDescriptionEn(descriptionEn)
-                .validateDescriptionUa(descriptionUa)
+                //.validateDescriptionEn(descriptionEn)
+                //.validateDescriptionUa(descriptionUa)
                 .errors();
 
         if (routeValidationErrors.isPresent()) {
@@ -51,7 +51,6 @@ public class EditRouteCommand implements Command {
             route.getLocalizedDescription().put("uk_UA", descriptionUa);
             routeDao.update(route);
             transactionManager.commit();
-
         }
         return getRouteDetails.execute(request, response);
     }

@@ -36,8 +36,8 @@ public class CreateNewRouteCommand implements Command {
         RouteValidationErrors routeValidationErrors = new RouteValidationErrorsBuilder()
                 .validateNumber(number)
                 .validateLength(length)
-                .validateDescriptionEn(descriptionEn)
-                .validateDescriptionUa(descriptionUa)
+                //.validateDescriptionEn(descriptionEn)
+                //.validateDescriptionUa(descriptionUa)
                 .errors();
 
         if (routeValidationErrors.isPresent()) {
@@ -51,7 +51,6 @@ public class CreateNewRouteCommand implements Command {
             route.getLocalizedDescription().put("uk_UA", descriptionUa);
             routeDao.create(route);
             transactionManager.commit();
-
 
             return getAllRoutesCommand.execute(request, response);
         }

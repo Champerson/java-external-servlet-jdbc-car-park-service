@@ -87,10 +87,10 @@ public class CommandMapping {
                 new EditRouteCommand(routeDao, transactionManager, GET_ROUTE_DETAILS.command)
         ),
         DELETE_BUS(
-                new DeleteBusCommand(busDao, transactionManager, GET_ALL_BUSES.command)
+                new DeleteBusCommand(busDao, assignmentDao, transactionManager, GET_ALL_BUSES.command)
         ),
         DELETE_USER(
-                new DeleteUserCommand(userDao, transactionManager, GET_ALL_USERS.command)
+                new DeleteUserCommand(userDao, assignmentDao, transactionManager, GET_ALL_USERS.command)
         ),
         DELETE_ASSIGNMENT(
                 new DeleteAssignmentCommand(assignmentDao, transactionManager, GET_ROUTE_DETAILS.command)

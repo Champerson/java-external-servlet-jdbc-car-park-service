@@ -8,7 +8,7 @@ public class UserValidationErrorsBuilder {
     private final static String PASSWORD_REGEX = "^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$";
     private final static String EMAIL_REGEX = "^(.+)@(.+)$";
     private final static String PHONE_REGEX = "\\d{10}";
-    private final static String AGE_REGEX = "[1-9]{2}";
+    private final static String AGE_REGEX = "[1-9]{0,2}";
     private final static String NAME_REGEX = "^[a-zA-Z0-9_-]{1,15}$";
 
     private final UserValidationErrors userValidationErrors = new UserValidationErrors();

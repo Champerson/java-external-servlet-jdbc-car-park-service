@@ -3,8 +3,6 @@ package com.car.park.service.controller.commands;
 import com.car.park.service.controller.Command;
 import com.car.park.service.controller.validation.BusValidationErrors;
 import com.car.park.service.controller.validation.BusValidationErrorsBuilder;
-import com.car.park.service.controller.validation.UserValidationErrors;
-import com.car.park.service.controller.validation.UserValidationErrorsBuilder;
 import com.car.park.service.dao.BusDao;
 import com.car.park.service.dao.support.TransactionManager;
 import com.car.park.service.model.Bus;
@@ -44,11 +42,11 @@ public class EditBusCommand implements Command {
                 .validateNumber(number)
                 .validateModel(model)
                 .validatePassengersCapacity(passengersCapacity)
-                .validateMileage(mileage)
-                .validateColourEn(colourEn)
-                .validateColourUa(colourUa)
-                .validateNotesEn(notesEn)
-                .validateNotesUa(notesUa)
+                //.validateMileage(mileage)
+                //.validateColourEn(colourEn)
+                //.validateColourUa(colourUa)
+                //.validateNotesEn(notesEn)
+                //.validateNotesUa(notesUa)
                 .errors();
 
         if (busValidationErrors.isPresent()) {

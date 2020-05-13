@@ -12,7 +12,6 @@
     </head>
     <body>
         <jsp:include page="logout.jsp"/>
-        <jsp:include page="locale.jsp"/>
         <h2><fmt:message key="admin.page.title" bundle="${bundle}"/></h2>
         <form action="./controller" method="POST">
             <input name="command" type="hidden" value="get_all_users">

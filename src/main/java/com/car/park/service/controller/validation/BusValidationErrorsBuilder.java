@@ -5,13 +5,13 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class BusValidationErrorsBuilder {
 
     private final static String NUMBER_REGEX = "^[A-Z]{2}\\d{4}[A-Z]{2}$";
-    private final static String MODEL_REGEX = ".";
-    private final static String PASSENGERS_CAPACITY_REGEX = ".";
-    private final static String MILEAGE_REGEX = ".";
-    private final static String COLOUR_EN_REGEX = ".";
-    private final static String COLOUR_UA_REGEX = ".";
-    private final static String NOTES_EN_REGEX = ".";
-    private final static String NOTES_UA_REGEX = ".";
+    private final static String MODEL_REGEX = "([a-zA-Z])\\w{0,20}";
+    private final static String PASSENGERS_CAPACITY_REGEX = "\\d{0,4}";
+    private final static String MILEAGE_REGEX = "\\d{0,9}";
+    //private final static String COLOUR_EN_REGEX = "([a-zA-Z])-?([a-zA-Z]){0,45}";
+    //private final static String COLOUR_UA_REGEX = "([а-яА-Я]]) -? (а-яА-Я){0,45}";
+    //private final static String NOTES_EN_REGEX = "([a-zA-Z])\\p{P}?{0,255}";
+    //private final static String NOTES_UA_REGEX = "(\\p{L}\\p{P}?){0,255}";
 
     private final BusValidationErrors busValidationErrors = new BusValidationErrors();
     private final Validator validator = new Validator();
@@ -40,7 +40,7 @@ public class BusValidationErrorsBuilder {
         return this;
     }
 
-    public BusValidationErrorsBuilder validateMileage(String mileage) {
+    /*public BusValidationErrorsBuilder validateMileage(String mileage) {
         if (!isEmpty(mileage) && !validator.isValidByRegex(mileage, MILEAGE_REGEX)) {
             busValidationErrors.setMileage("validation.bus.mileage.invalid");
         }
@@ -73,7 +73,7 @@ public class BusValidationErrorsBuilder {
             busValidationErrors.setNotesUa("validation.bus.notes.ua.invalid");
         }
         return this;
-    }
+    }*/
 
     public BusValidationErrors errors() {
         return busValidationErrors;

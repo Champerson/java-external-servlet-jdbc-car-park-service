@@ -12,7 +12,6 @@
 </head>
     <body>
         <jsp:include page="logout.jsp"/>
-        <jsp:include page="locale.jsp"/>
         <h1><fmt:message key="user.office.title" bundle="${bundle}"/> ${user.login}</h1>
 
         <form name="edit-user" action="./controller" method="post">
