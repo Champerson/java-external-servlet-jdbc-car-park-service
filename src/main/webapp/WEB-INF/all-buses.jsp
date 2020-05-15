@@ -12,7 +12,6 @@
 </head>
     <body>
         <jsp:include page="logout.jsp"/>
-        <jsp:include page="locale.jsp"/>
         <h1><fmt:message key="buses.page.title" bundle="${bundle}"/></h1>
 
         <p>

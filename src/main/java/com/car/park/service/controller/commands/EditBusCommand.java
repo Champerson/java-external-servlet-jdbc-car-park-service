@@ -42,11 +42,11 @@ public class EditBusCommand implements Command {
                 .validateNumber(number)
                 .validateModel(model)
                 .validatePassengersCapacity(passengersCapacity)
-                //.validateMileage(mileage)
-                //.validateColourEn(colourEn)
-                //.validateColourUa(colourUa)
-                //.validateNotesEn(notesEn)
-                //.validateNotesUa(notesUa)
+                .validateMileage(mileage)
+                .validateColourEn(colourEn)
+                .validateColourUa(colourUa)
+                .validateNotesEn(notesEn)
+                .validateNotesUa(notesUa)
                 .errors();
 
         if (busValidationErrors.isPresent()) {

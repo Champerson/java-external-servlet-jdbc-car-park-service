@@ -27,12 +27,12 @@
         <form name="test" action="${localeFormAction}" method="${localeFormMethod}">
             ${localeFormCommand}
             <input name="locale" type="hidden" value="en_EN">
-            <button>en</button>
+            <button>English</button>
         </form>
         <form name="test" action="${localeFormAction}" method="${localeFormMethod}">
             ${localeFormCommand}
             <input name="locale" type="hidden" value="uk_UA">
-            <button>ua</button>
+            <button>Українська</button>
         </form>
         <form name="registration" action="./controller" method="post">
             <p>

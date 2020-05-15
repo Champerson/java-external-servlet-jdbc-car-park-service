@@ -37,8 +37,8 @@ public class EditRouteCommand implements Command {
         RouteValidationErrors routeValidationErrors = new RouteValidationErrorsBuilder()
                 .validateNumber(number)
                 .validateLength(length)
-                //.validateDescriptionEn(descriptionEn)
-                //.validateDescriptionUa(descriptionUa)
+                .validateDescriptionEn(descriptionEn)
+                .validateDescriptionUa(descriptionUa)
                 .errors();
 
         if (routeValidationErrors.isPresent()) {
