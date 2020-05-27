@@ -10,6 +10,8 @@ public interface BusDao {
 
     Bus read(long busId);
 
+    Bus read(String number);
+
     List<Bus> readAll();
 
     List<Bus> readAllWithoutAssignment();

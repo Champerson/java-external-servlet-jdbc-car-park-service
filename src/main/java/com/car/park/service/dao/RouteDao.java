@@ -10,6 +10,8 @@ public interface RouteDao {
 
     Route read(long routeId);
 
+    Route read(String number);
+
     List<Route> readAll();
 
     void update(Route route);

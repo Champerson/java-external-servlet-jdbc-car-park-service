@@ -4,7 +4,6 @@ import com.car.park.service.controller.Command;
 import com.car.park.service.controller.support.PasswordEncoder;
 import com.car.park.service.controller.validation.UserValidationErrors;
 import com.car.park.service.controller.validation.UserValidationErrorsBuilder;
-import com.car.park.service.dao.DaoFactory;
 import com.car.park.service.dao.UserDao;
 import com.car.park.service.dao.support.TransactionManager;
 import com.car.park.service.model.User;
@@ -48,6 +47,12 @@ public class CreateNewUserCommand implements Command {
                 .validateName(name)
                 .validateAge(age)
                 .errors();
+
+        if (userValidationErrors.getLogin() == null) {
+            if (userDao.read(login) != null) {
+                userValidationErrors.setLogin("user.exist");
+            }
+        }
 
         if (userValidationErrors.isPresent()) {
             request.setAttribute("validationErrors", userValidationErrors);

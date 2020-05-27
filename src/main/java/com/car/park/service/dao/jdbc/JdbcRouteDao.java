@@ -20,6 +20,7 @@ public class JdbcRouteDao extends AbstractJdbcDao<Route> implements RouteDao {
             "route_number = ?, route_length = ?, route_description_en = ?, route_description_ua = ? " +
             "WHERE route_id = ?";
     private static final String SELECT_BY_ID_REQUEST = "SELECT * FROM routes WHERE route_id = %s";
+    private static final String SELECT_BY_NUMBER_REQUEST = "SELECT * FROM routes WHERE route_number = %s";
     private static final String SELECT_ALL_REQUEST = "SELECT * FROM routes";
     private static final String DELETE_REQUEST = "DELETE FROM routes WHERE route_id = %s";
 
@@ -35,6 +36,11 @@ public class JdbcRouteDao extends AbstractJdbcDao<Route> implements RouteDao {
     @Override
     public Route read(long routeId) {
         return selectSingleElement(format(SELECT_BY_ID_REQUEST, routeId));
+    }
+
+    @Override
+    public Route read(String number) {
+        return selectSingleElement(format(SELECT_BY_NUMBER_REQUEST, number));
     }
 
     @Override

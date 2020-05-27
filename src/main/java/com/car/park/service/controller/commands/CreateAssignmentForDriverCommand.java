@@ -2,7 +2,6 @@ package com.car.park.service.controller.commands;
 
 import com.car.park.service.controller.Command;
 import com.car.park.service.dao.AssignmentDao;
-import com.car.park.service.dao.DaoFactory;
 import com.car.park.service.dao.UserDao;
 import com.car.park.service.dao.support.TransactionManager;
 import com.car.park.service.model.Assignment;
@@ -10,7 +9,6 @@ import com.car.park.service.model.Assignment;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.car.park.service.controller.CommandMapping.Commands.GET_ROUTE_DETAILS;
 import static java.lang.Long.parseLong;
 
 public class CreateAssignmentForDriverCommand implements Command {

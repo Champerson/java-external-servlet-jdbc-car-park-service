@@ -5,6 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>route details</title>
     <fmt:requestEncoding value="UTF-8" />
     <fmt:setLocale value="${sessionScope.locale}" />
@@ -12,6 +13,7 @@
 </head>
     <body>
         <jsp:include page="logout.jsp"/>
+        <jsp:include page="locale.jsp"/>
         <h1><fmt:message key="route.page.title" bundle="${bundle}"/> ${route.number}</h1>
         <form name="edit-route-name" action="./controller" method="post">
             <p>

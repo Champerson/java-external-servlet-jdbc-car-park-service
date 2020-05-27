@@ -40,6 +40,12 @@ public class CreateNewRouteCommand implements Command {
                 .validateDescriptionUa(descriptionUa)
                 .errors();
 
+        if (routeValidationErrors.getNumber() == null) {
+            if (routeDao.read(number) != null) {
+                routeValidationErrors.setNumber("route.exist");
+            }
+        }
+
         if (routeValidationErrors.isPresent()) {
             request.setAttribute("validationErrors", routeValidationErrors);
             return NEW_ROUTE_PAGE;

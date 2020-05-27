@@ -2,7 +2,6 @@ package com.car.park.service.controller.commands;
 
 import com.car.park.service.controller.Command;
 import com.car.park.service.dao.BusDao;
-import com.car.park.service.dao.DaoFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

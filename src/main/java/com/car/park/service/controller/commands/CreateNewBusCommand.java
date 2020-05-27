@@ -48,6 +48,12 @@ public class CreateNewBusCommand implements Command {
                 .validateNotesUa(notesUa)
                 .errors();
 
+        if (busValidationErrors.getNumber() != null) {
+            if (busDao.read(number) != null) {
+                busValidationErrors.setNumber("bus.exist");
+            }
+        }
+
         if (busValidationErrors.isPresent()) {
             request.setAttribute("validationErrors", busValidationErrors);
             return NEW_BUS_PAGE;

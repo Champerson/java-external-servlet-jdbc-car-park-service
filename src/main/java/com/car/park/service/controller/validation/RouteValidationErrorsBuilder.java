@@ -21,7 +21,7 @@ public class RouteValidationErrorsBuilder {
     }
 
     public RouteValidationErrorsBuilder validateLength(String length) {
-        if (!isEmpty(length) && !validator.isPositiveNumber(length)) {
+        if (isEmpty(length) && !validator.isPositiveNumber(length)) {
             routeValidationErrors.setLength("validation.length.invalid");
         }
         return this;

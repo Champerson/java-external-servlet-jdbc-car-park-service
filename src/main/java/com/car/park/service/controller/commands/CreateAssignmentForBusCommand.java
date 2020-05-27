@@ -10,7 +10,6 @@ import com.car.park.service.model.Assignment;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.car.park.service.controller.CommandMapping.Commands.GET_ROUTE_DETAILS;
 import static java.lang.Long.parseLong;
 import static java.time.LocalDateTime.now;
 

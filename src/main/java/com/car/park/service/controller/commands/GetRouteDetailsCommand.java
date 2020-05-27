@@ -24,12 +24,24 @@ public class GetRouteDetailsCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        long routeId = parseLong(request.getParameter("routeId"));
+        String routeIdRequest = request.getParameter("routeId");
 
-        Route route = routeDao.read(routeId);
-        route.setAssignments(assignmentDao.readByRouteId(route.getId()));
+        if (routeIdRequest != null && !routeIdRequest.isEmpty()) {
+            long routeId = parseLong(routeIdRequest);
 
-        request.setAttribute("route", route);
+            Route route = routeDao.read(routeId);
+            route.setAssignments(assignmentDao.readByRouteId(route.getId()));
+
+            request.setAttribute("route", route);
+            request.getSession().setAttribute("routeId", routeId);
+        } else {
+            long routeId = (long) request.getSession().getAttribute("routeId");
+
+            Route route = routeDao.read(routeId);
+            route.setAssignments(assignmentDao.readByRouteId(route.getId()));
+
+            request.setAttribute("route", route);
+        }
         return ROUTE_INFO_PAGE;
     }
 }
