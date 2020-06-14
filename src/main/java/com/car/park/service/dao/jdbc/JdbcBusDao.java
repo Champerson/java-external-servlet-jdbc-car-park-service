@@ -22,7 +22,7 @@ public class JdbcBusDao extends AbstractJdbcDao<Bus> implements BusDao {
             "bus_colour_en = ?, bus_colour_ua = ?, bus_notes_en = ?, bus_notes_ua = ? " +
             "WHERE bus_id = ?";
     private static final String SELECT_BY_ID_REQUEST = "SELECT * FROM buses WHERE bus_id = %s";
-    private static final String SELECT_BY_NUMBER_REQUEST = "SELECT * FROM buses WHERE bus_number = %s";
+    private static final String SELECT_BY_NUMBER_REQUEST = "SELECT * FROM buses WHERE bus_number = '%s'";
     private static final String SELECT_ALL_REQUEST = "SELECT * FROM buses";
     private static final String SELECT_ALL_WITHOUT_ASSIGNMENT_REQUEST = "SELECT * FROM buses WHERE " +
             "(SELECT assignment_id FROM assignments WHERE assignments.assignment_bus_id = buses.bus_id) IS NULL";

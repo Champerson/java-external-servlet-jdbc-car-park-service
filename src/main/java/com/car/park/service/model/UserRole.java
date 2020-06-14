@@ -1,7 +1,7 @@
 package com.car.park.service.model;
 
 public enum UserRole {
-    ADMIN,
-    DRIVER
+    ROLE_ADMIN,
+    ROLE_DRIVER
 }
 

@@ -2,8 +2,8 @@ package com.car.park.service.controller.commands;
 
 import com.car.park.service.controller.Command;
 import com.car.park.service.controller.support.PasswordEncoder;
-import com.car.park.service.controller.validation.UserValidationErrors;
-import com.car.park.service.controller.validation.UserValidationErrorsBuilder;
+import com.car.park.service.controller.validation.UserValidationDto;
+import com.car.park.service.controller.validation.UserValidationResultBuilder;
 import com.car.park.service.dao.UserDao;
 import com.car.park.service.dao.support.TransactionManager;
 import com.car.park.service.model.User;
@@ -11,14 +11,14 @@ import com.car.park.service.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.car.park.service.model.UserRole.DRIVER;
+import static com.car.park.service.model.UserRole.ROLE_DRIVER;
 import static java.lang.Integer.parseInt;
 import static java.time.LocalDateTime.now;
 
 public class CreateNewUserCommand implements Command {
 
     private static final String INDEX_PAGE = "index.jsp";
-    private static final String REGISTRATION_PAGE = "registration.jsp";
+    private static final String REGISTRATION_PAGE = "WEB-INF/jsp/registration-page.jsp";
 
     private final UserDao userDao;
     private final TransactionManager transactionManager;
@@ -39,7 +39,7 @@ public class CreateNewUserCommand implements Command {
         String name = request.getParameter("name");
         String age = request.getParameter("age");
 
-        UserValidationErrors userValidationErrors = new UserValidationErrorsBuilder()
+        UserValidationDto userValidationDto = new UserValidationResultBuilder()
                 .validateLogin(login)
                 .validatePassword(password)
                 .validateEmail(email)
@@ -47,15 +47,10 @@ public class CreateNewUserCommand implements Command {
                 .validateName(name)
                 .validateAge(age)
                 .errors();
+        checkUserLoginExist(userValidationDto);
 
-        if (userValidationErrors.getLogin() == null) {
-            if (userDao.read(login) != null) {
-                userValidationErrors.setLogin("user.exist");
-            }
-        }
-
-        if (userValidationErrors.isPresent()) {
-            request.setAttribute("validationErrors", userValidationErrors);
+        if (userValidationDto.validationFailed()) {
+            request.getSession().setAttribute("validationResult", userValidationDto);
             return REGISTRATION_PAGE;
         } else {
             User user = new User();
@@ -65,11 +60,21 @@ public class CreateNewUserCommand implements Command {
             user.setPhone(phone);
             user.setName(name);
             user.setAge(parseInt(age));
-            user.setAccessRole(DRIVER);
+            user.setAccessRole(ROLE_DRIVER);
             user.setCreationTime(now());
             userDao.create(user);
             transactionManager.commit();
+            request.getSession().removeAttribute("validationResult");
+            request.setAttribute("successMessage", "success.registration.completed");
             return INDEX_PAGE;
+        }
+    }
+
+    private void checkUserLoginExist(UserValidationDto userValidationDto) {
+        if (userValidationDto.getLoginError() == null) {
+            if (userDao.read(userValidationDto.getLogin()) != null) {
+                userValidationDto.setLoginError("validation.user.login.exist");
+            }
         }
     }
 }

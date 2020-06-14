@@ -1,8 +1,8 @@
 package com.car.park.service.controller.commands;
 
 import com.car.park.service.controller.Command;
-import com.car.park.service.controller.validation.UserValidationErrors;
-import com.car.park.service.controller.validation.UserValidationErrorsBuilder;
+import com.car.park.service.controller.validation.UserValidationDto;
+import com.car.park.service.controller.validation.UserValidationResultBuilder;
 import com.car.park.service.dao.UserDao;
 import com.car.park.service.dao.support.TransactionManager;
 import com.car.park.service.model.User;
@@ -14,7 +14,7 @@ import static java.lang.Integer.parseInt;
 
 public class EditUserCommand implements Command {
 
-    private static final String USER_OFFICE_PAGE = "WEB-INF/user-office.jsp";
+    private static final String USER_OFFICE_PAGE = "WEB-INF/jsp/user-office-page.jsp";
 
     private final UserDao userDao;
     private final TransactionManager transactionManager;
@@ -36,16 +36,15 @@ public class EditUserCommand implements Command {
         String name = request.getParameter("name");
         String age = request.getParameter("age");
 
-        UserValidationErrors userValidationErrors = new UserValidationErrorsBuilder()
+        UserValidationDto userValidationDto = new UserValidationResultBuilder()
                 .validateEmail(email)
                 .validatePhone(phone)
                 .validateName(name)
                 .validateAge(age)
                 .errors();
 
-        if (userValidationErrors.isPresent()) {
-            request.setAttribute("validationErrors", userValidationErrors);
-            return USER_OFFICE_PAGE;
+        if (userValidationDto.validationFailed()) {
+            request.getSession().setAttribute("validationResult", userValidationDto);
         } else {
             user.setEmail(email);
             user.setPhone(phone);
@@ -53,8 +52,9 @@ public class EditUserCommand implements Command {
             user.setAge(parseInt(age));
             userDao.update(user);
             transactionManager.commit();
-
-            return getUserOfficeCommand.execute(request, response);
+            request.setAttribute("successMessage", "success.user.updated");
+            request.getSession().removeAttribute("validationResult");
         }
+        return getUserOfficeCommand.execute(request, response);
     }
 }

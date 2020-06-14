@@ -5,6 +5,10 @@ import com.car.park.service.controller.support.PasswordEncoder;
 import com.car.park.service.dao.*;
 import com.car.park.service.dao.support.TransactionManager;
 
+/**
+ * This class contains commands mapping and, additionally, it is a container for all dependencies which are necessary for all commands.
+ * It creates commands and injects all dependencies.
+ */
 public class CommandMapping {
 
     private static TransactionManager transactionManager = TransactionManager.getInstance();
@@ -15,16 +19,19 @@ public class CommandMapping {
     private static AssignmentDao assignmentDao = daoFactory.createAssignmentDao(transactionManager);
     private static PasswordEncoder passwordEncoder = new PasswordEncoder();
 
+    /**
+     * This enum contains mapping of a command name which is represented by enum value and concrete command implementation.
+     */
     public enum Commands {
 
         GET_ALL_USERS(
-                new GetAllUsersCommand(userDao)
+                new GetAllUsersCommand(userDao, assignmentDao)
         ),
         GET_ALL_BUSES(
-                new GetAllBusesCommand(busDao)
+                new GetAllBusesCommand(busDao, assignmentDao)
         ),
         GET_ALL_ROUTES(
-                new GetAllRoutesCommand(routeDao)
+                new GetAllRoutesCommand(routeDao, assignmentDao)
         ),
         GET_USER_DETAILS(
                 new GetUserDetailsCommand(userDao, assignmentDao)
@@ -34,6 +41,9 @@ public class CommandMapping {
         ),
         GET_ROUTE_DETAILS(
                 new GetRouteDetailsCommand(routeDao, assignmentDao)
+        ),
+        GET_BUS_DETAILS(
+                new GetBusDetailsCommand(busDao)
         ),
         GET_UNASSIGNED_DRIVERS(
                 new GetUnassignedDriversCommand(userDao)
@@ -66,7 +76,7 @@ public class CommandMapping {
                 new CreateAssignmentForBusCommand(routeDao, busDao, assignmentDao, transactionManager, GET_ROUTE_DETAILS.command)
         ),
         EDIT_BUS(
-                new EditBusCommand(busDao, transactionManager, GET_ALL_BUSES.command)
+                new EditBusCommand(busDao, transactionManager, GET_BUS_DETAILS.command)
         ),
         EDIT_USER(
                 new EditUserCommand(userDao, transactionManager, GET_USER_OFFICE.command)
@@ -78,7 +88,7 @@ public class CommandMapping {
                 new EditUserAssignmentAcceptCommand(userDao, assignmentDao, transactionManager, GET_USER_OFFICE.command)
         ),
         EDIT_USER_ASSIGNMENT_DELETE(
-                new EditUserAssignmentDeleteCommand(userDao, assignmentDao, transactionManager, GET_USER_DETAILS.command)
+                new EditUserAssignmentDeleteCommand(assignmentDao, transactionManager)
         ),
         EDIT_USER_ROLE(
                 new EditUserRoleCommand(userDao, transactionManager, GET_USER_DETAILS.command)
@@ -105,6 +115,10 @@ public class CommandMapping {
             this.command = command;
         }
 
+        /**
+         * Returns command implementation on enum value
+         * @return Command
+         */
         public Command command() {
             return command;
         }

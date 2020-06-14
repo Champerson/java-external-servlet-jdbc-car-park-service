@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class GetUnassignedBusesCommand implements Command {
 
-    private static final String UNASSIGNED_BUSES_PAGE = "WEB-INF/unassigned-buses.jsp";
+    private static final String UNASSIGNED_BUSES_PAGE = "WEB-INF/jsp/admin-route-assign-bus-page.jsp";
 
     private final BusDao busDao;
 

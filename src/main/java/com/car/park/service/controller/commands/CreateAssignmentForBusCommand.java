@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import static java.lang.Long.parseLong;
 import static java.time.LocalDateTime.now;
 
+/**
+ * This command creates a new Assignment to connect Bus with Route.
+ */
 public class CreateAssignmentForBusCommand implements Command {
 
     private final RouteDao routeDao;
@@ -45,6 +48,7 @@ public class CreateAssignmentForBusCommand implements Command {
         assignment.setRoute(routeDao.read(routeId));
         assignmentDao.create(assignment);
         transactionManager.commit();
+        request.setAttribute("successMessage", "success.route.assignment.created");
 
         return getRouteDetailsCommand.execute(request, response);
     }

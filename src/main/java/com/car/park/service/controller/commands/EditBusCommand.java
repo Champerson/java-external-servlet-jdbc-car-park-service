@@ -1,8 +1,8 @@
 package com.car.park.service.controller.commands;
 
 import com.car.park.service.controller.Command;
-import com.car.park.service.controller.validation.BusValidationErrors;
-import com.car.park.service.controller.validation.BusValidationErrorsBuilder;
+import com.car.park.service.controller.validation.BusValidationDto;
+import com.car.park.service.controller.validation.BusValidationResultBuilder;
 import com.car.park.service.dao.BusDao;
 import com.car.park.service.dao.support.TransactionManager;
 import com.car.park.service.model.Bus;
@@ -17,12 +17,12 @@ public class EditBusCommand implements Command {
 
     private final BusDao busDao;
     private final TransactionManager transactionManager;
-    private final Command getAllBusesCommand;
+    private final Command getBusDetailsCommand;
 
-    public EditBusCommand(BusDao busDao, TransactionManager transactionManager, Command getAllBusesCommand) {
+    public EditBusCommand(BusDao busDao, TransactionManager transactionManager, Command getBusDetailsCommand) {
         this.busDao = busDao;
         this.transactionManager = transactionManager;
-        this.getAllBusesCommand = getAllBusesCommand;
+        this.getBusDetailsCommand = getBusDetailsCommand;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class EditBusCommand implements Command {
         String notesEn = request.getParameter("notesEn");
         String notesUa = request.getParameter("notesUa");
 
-        BusValidationErrors busValidationErrors = new BusValidationErrorsBuilder()
+        BusValidationDto busValidationDto = new BusValidationResultBuilder()
                 .validateNumber(number)
                 .validateModel(model)
                 .validatePassengersCapacity(passengersCapacity)
@@ -49,8 +49,8 @@ public class EditBusCommand implements Command {
                 .validateNotesUa(notesUa)
                 .errors();
 
-        if (busValidationErrors.isPresent()) {
-            request.setAttribute("validationErrors", busValidationErrors);
+        if (busValidationDto.validationFailed()) {
+            request.getSession().setAttribute("validationResult", busValidationDto);
         } else {
             Bus bus = busDao.read(busId);
             bus.setNumber(number);
@@ -63,7 +63,9 @@ public class EditBusCommand implements Command {
             bus.getLocalizedNotes().put("uk_UA", notesUa);
             busDao.update(bus);
             transactionManager.commit();
+            request.setAttribute("successMessage", "success.bus.updated");
+            request.getSession().removeAttribute("validationResult");
         }
-        return getAllBusesCommand.execute(request, response);
+        return getBusDetailsCommand.execute(request, response);
     }
 }

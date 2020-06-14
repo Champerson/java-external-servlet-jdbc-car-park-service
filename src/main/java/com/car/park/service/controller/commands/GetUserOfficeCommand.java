@@ -9,11 +9,11 @@ import com.car.park.service.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.car.park.service.controller.CommandMapping.Commands.GET_USER_OFFICE;
+import static com.car.park.service.controller.CommandMapping.Commands.*;
 
 public class GetUserOfficeCommand implements Command {
 
-    private static final String USER_OFFICE_PAGE = "WEB-INF/user-office.jsp";
+    private static final String USER_OFFICE_PAGE = "WEB-INF/jsp/user-office-page.jsp";
 
     private final UserDao userDao;
     private final AssignmentDao assignmentDao;
@@ -25,6 +25,7 @@ public class GetUserOfficeCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        cleanUpValidationResult(request, EDIT_USER);
         long sessionUserId = (long) request.getSession().getAttribute("userId");
         User user = userDao.read(sessionUserId);
         Assignment assignment = assignmentDao.readByDriverId(user.getId());

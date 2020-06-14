@@ -6,6 +6,7 @@ import com.car.park.service.dao.UserDao;
 import com.car.park.service.dao.support.TransactionManager;
 import com.car.park.service.model.User;
 import com.car.park.service.model.UserRole;
+import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -17,38 +18,46 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.car.park.service.controller.CommandMapping.Commands.*;
-import static com.car.park.service.model.UserRole.ADMIN;
-import static com.car.park.service.model.UserRole.DRIVER;
+import static com.car.park.service.model.UserRole.ROLE_ADMIN;
+import static com.car.park.service.model.UserRole.ROLE_DRIVER;
+import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
+/**
+ * This filter handles user authentication, it checks whether a user role is acceptable for a certain command.
+ * It contains configuration which maps certain command with acceptable user roles.
+ * According to this configuration a command will not be executed if user role does not match and login page will be opened instead.
+ * In case command has no configuration mapping it is available for any user.
+ */
 public class AuthenticationFilter implements Filter {
 
+    private static final Logger LOG = Logger.getLogger(AuthenticationFilter.class);
+
     private static final Map<CommandMapping.Commands, List<UserRole>> PERMISSIONS = new HashMap<CommandMapping.Commands, List<UserRole>>() {{
-        put(LOGOUT, asList(ADMIN, DRIVER));
-        put(REDIRECT, asList(ADMIN, DRIVER));
-        put(CREATE_ROUTE, singletonList(ADMIN));
-        put(CREATE_DRIVER_ASSIGNMENT, singletonList(ADMIN));
-        put(CREATE_BUS_ASSIGNMENT, singletonList(ADMIN));
-        put(CREATE_BUS, singletonList(ADMIN));
-        put(GET_ALL_USERS, singletonList(ADMIN));
-        put(GET_ALL_BUSES, singletonList(ADMIN));
-        put(GET_ALL_ROUTES, singletonList(ADMIN));
-        put(GET_USER_DETAILS, singletonList(ADMIN));
-        put(GET_ROUTE_DETAILS, singletonList(ADMIN));
-        put(GET_UNASSIGNED_DRIVERS, singletonList(ADMIN));
-        put(GET_UNASSIGNED_BUSES, singletonList(ADMIN));
-        put(EDIT_BUS, singletonList(ADMIN));
-        put(EDIT_ROUTE, singletonList(ADMIN));
-        put(EDIT_USER, asList(ADMIN, DRIVER));
-        put(EDIT_USER_PASSWORD, asList(ADMIN, DRIVER));
-        put(EDIT_USER_ASSIGNMENT_ACCEPT, singletonList(DRIVER));
-        put(EDIT_USER_ASSIGNMENT_DELETE, singletonList(ADMIN));
-        put(EDIT_USER_ROLE, singletonList(ADMIN));
-        put(DELETE_ASSIGNMENT, singletonList(ADMIN));
-        put(DELETE_ROUTE, singletonList(ADMIN));
-        put(DELETE_BUS, singletonList(ADMIN));
-        put(DELETE_USER, singletonList(ADMIN));
+        put(LOGOUT, asList(ROLE_ADMIN, ROLE_DRIVER));
+        put(CREATE_ROUTE, singletonList(ROLE_ADMIN));
+        put(CREATE_DRIVER_ASSIGNMENT, singletonList(ROLE_ADMIN));
+        put(CREATE_BUS_ASSIGNMENT, singletonList(ROLE_ADMIN));
+        put(CREATE_BUS, singletonList(ROLE_ADMIN));
+        put(GET_ALL_USERS, singletonList(ROLE_ADMIN));
+        put(GET_ALL_BUSES, singletonList(ROLE_ADMIN));
+        put(GET_ALL_ROUTES, singletonList(ROLE_ADMIN));
+        put(GET_USER_DETAILS, singletonList(ROLE_ADMIN));
+        put(GET_ROUTE_DETAILS, singletonList(ROLE_ADMIN));
+        put(GET_UNASSIGNED_DRIVERS, singletonList(ROLE_ADMIN));
+        put(GET_UNASSIGNED_BUSES, singletonList(ROLE_ADMIN));
+        put(EDIT_BUS, singletonList(ROLE_ADMIN));
+        put(EDIT_ROUTE, singletonList(ROLE_ADMIN));
+        put(EDIT_USER, asList(ROLE_ADMIN, ROLE_DRIVER));
+        put(EDIT_USER_PASSWORD, asList(ROLE_ADMIN, ROLE_DRIVER));
+        put(EDIT_USER_ASSIGNMENT_ACCEPT, singletonList(ROLE_DRIVER));
+        put(EDIT_USER_ASSIGNMENT_DELETE, asList(ROLE_ADMIN, ROLE_DRIVER));
+        put(EDIT_USER_ROLE, singletonList(ROLE_ADMIN));
+        put(DELETE_ASSIGNMENT, singletonList(ROLE_ADMIN));
+        put(DELETE_ROUTE, singletonList(ROLE_ADMIN));
+        put(DELETE_BUS, singletonList(ROLE_ADMIN));
+        put(DELETE_USER, singletonList(ROLE_ADMIN));
     }};
 
     private final UserDao userDao = DaoFactory.getInstance().createUserDao(TransactionManager.getInstance());
@@ -64,6 +73,7 @@ public class AuthenticationFilter implements Filter {
         if (commandHasNoRestrictions(command) || userRoleMatchesCommandPermissions(request, command)) {
             filterChain.doFilter(request, response);
         } else {
+            LOG.warn(format("Access denied, trying to execute command '%s'", request.getParameter("command")));
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }

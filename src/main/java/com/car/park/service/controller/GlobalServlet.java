@@ -4,6 +4,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This servlet handles all POST requests.
+ * It executes an appropriate command according to 'command' parameter passed within a request
+ * and forwards to a page which is a result of the command execution.
+ */
 public class GlobalServlet extends HttpServlet {
 
     @Override

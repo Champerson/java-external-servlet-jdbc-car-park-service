@@ -4,7 +4,12 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 
+/**
+ * This filter is responsible for localization, it sets locale obtained from user to session,
+ * in case no locale provided it sets default 'en' locale.
+ */
 public class LocalizationFilter implements Filter {
 
     private static final String RESPONSE_CONTENT_TYPE = "text/html;charset=UTF-8";
@@ -26,9 +31,19 @@ public class LocalizationFilter implements Filter {
         String localeFromRequest = request.getParameter("locale");
         HttpSession session = request.getSession(true);
         if (localeFromRequest != null) {
+            passParametersToNextPage(request);
             session.setAttribute("locale", localeFromRequest);
         } else if (session.getAttribute("locale") == null) {
             session.setAttribute("locale", DEFAULT_LOCALE);
+        }
+    }
+
+    private void passParametersToNextPage(HttpServletRequest request) {
+        for (Map.Entry<String, String []> parameters : request.getParameterMap().entrySet()) {
+            String[] parameterValue = parameters.getValue();
+            if (parameterValue.length != 0) {
+                request.setAttribute(parameters.getKey(), parameterValue[0]);
+            }
         }
     }
 

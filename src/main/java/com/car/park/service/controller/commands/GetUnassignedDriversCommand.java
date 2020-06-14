@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.car.park.service.model.UserRole.DRIVER;
+import static com.car.park.service.model.UserRole.ROLE_DRIVER;
 import static java.util.stream.Collectors.toList;
 
 public class GetUnassignedDriversCommand implements Command {
 
-    private static final String UNASSIGNED_DRIVERS_PAGE = "WEB-INF/unassigned-drivers.jsp";
+    private static final String UNASSIGNED_DRIVERS_PAGE = "WEB-INF/jsp/admin-route-assign-driver-page.jsp";
 
     private final UserDao userDao;
 
@@ -31,7 +31,7 @@ public class GetUnassignedDriversCommand implements Command {
 
     private List<User> getDriversAvailableForAssignment() {
         return userDao.readAllWithoutAssignment().stream()
-                .filter(user -> DRIVER.equals(user.getAccessRole()))
+                .filter(user -> ROLE_DRIVER.equals(user.getAccessRole()))
                 .collect(toList());
     }
 }

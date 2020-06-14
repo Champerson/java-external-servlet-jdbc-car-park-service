@@ -36,6 +36,7 @@ public class EditUserAssignmentAcceptCommand implements Command {
         assignment.setAcceptedByDriver(true);
         assignmentDao.update(assignment);
         transactionManager.commit();
+        request.setAttribute("successMessage", "success.user.assignment.accepted");
 
         return getUserOfficeCommand.execute(request, response);
     }

@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Long.parseLong;
 
+/**
+ * This command updates an existing Assignment to connect User with Bus and Route.
+ */
 public class CreateAssignmentForDriverCommand implements Command {
 
     private final UserDao userDao;

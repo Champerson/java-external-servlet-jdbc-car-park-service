@@ -13,7 +13,7 @@ import static java.lang.Long.parseLong;
 
 public class GetUserDetailsCommand implements Command {
 
-    private static final String USER_INFO_PAGE = "WEB-INF/user-details.jsp";
+    private static final String USER_INFO_PAGE = "WEB-INF/jsp/admin-user-details-page.jsp";
 
     private final UserDao userDao;
     private final AssignmentDao assignmentDao;
@@ -32,7 +32,6 @@ public class GetUserDetailsCommand implements Command {
         user.setAssignment(assignment);
 
         request.setAttribute("user", user);
-        request.setAttribute("assignment", assignment);
         return USER_INFO_PAGE;
     }
 }

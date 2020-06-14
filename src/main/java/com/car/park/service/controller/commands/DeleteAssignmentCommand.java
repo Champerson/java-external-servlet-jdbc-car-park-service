@@ -26,6 +26,7 @@ public class DeleteAssignmentCommand implements Command {
         long assignmentId = parseLong(request.getParameter("assignmentId"));
         assignmentDao.delete(assignmentId);
         transactionManager.commit();
+        request.setAttribute("successMessage", "success.route.assignment.deleted");
         return getRouteDetailsCommand.execute(request, response);
     }
 }

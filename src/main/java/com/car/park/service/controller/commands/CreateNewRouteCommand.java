@@ -1,8 +1,8 @@
 package com.car.park.service.controller.commands;
 
 import com.car.park.service.controller.Command;
-import com.car.park.service.controller.validation.RouteValidationErrors;
-import com.car.park.service.controller.validation.RouteValidationErrorsBuilder;
+import com.car.park.service.controller.validation.RouteValidationDto;
+import com.car.park.service.controller.validation.RouteValidationResultBuilder;
 import com.car.park.service.dao.RouteDao;
 import com.car.park.service.dao.support.TransactionManager;
 import com.car.park.service.model.Route;
@@ -14,7 +14,7 @@ import static java.lang.Integer.parseInt;
 
 public class CreateNewRouteCommand implements Command {
 
-    private static final String NEW_ROUTE_PAGE = "WEB-INF/new-route.jsp";
+    private static final String NEW_ROUTE_PAGE = "WEB-INF/jsp/admin-route-create-page.jsp";
 
     private final RouteDao routeDao;
     private final TransactionManager transactionManager;
@@ -33,21 +33,16 @@ public class CreateNewRouteCommand implements Command {
         String descriptionEn = request.getParameter("descriptionEn");
         String descriptionUa = request.getParameter("descriptionUa");
 
-        RouteValidationErrors routeValidationErrors = new RouteValidationErrorsBuilder()
+        RouteValidationDto routeValidationDto = new RouteValidationResultBuilder()
                 .validateNumber(number)
                 .validateLength(length)
                 .validateDescriptionEn(descriptionEn)
                 .validateDescriptionUa(descriptionUa)
                 .errors();
+        checkRouteNumberExist(routeValidationDto);
 
-        if (routeValidationErrors.getNumber() == null) {
-            if (routeDao.read(number) != null) {
-                routeValidationErrors.setNumber("route.exist");
-            }
-        }
-
-        if (routeValidationErrors.isPresent()) {
-            request.setAttribute("validationErrors", routeValidationErrors);
+        if (routeValidationDto.validationFailed()) {
+            request.getSession().setAttribute("validationResult", routeValidationDto);
             return NEW_ROUTE_PAGE;
         } else {
             Route route = new Route();
@@ -57,8 +52,17 @@ public class CreateNewRouteCommand implements Command {
             route.getLocalizedDescription().put("uk_UA", descriptionUa);
             routeDao.create(route);
             transactionManager.commit();
-
+            request.setAttribute("successMessage", "success.route.created");
+            request.getSession().removeAttribute("validationResult");
             return getAllRoutesCommand.execute(request, response);
+        }
+    }
+
+    private void checkRouteNumberExist(RouteValidationDto routeValidationDto) {
+        if (routeValidationDto.getNumberError() == null) {
+            if (routeDao.read(routeValidationDto.getNumber()) != null) {
+                routeValidationDto.setNumberError("validation.route.number.exist");
+            }
         }
     }
 }

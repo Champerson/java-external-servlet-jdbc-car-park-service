@@ -26,6 +26,7 @@ public class DeleteRouteCommand implements Command {
         long routeId = parseLong(request.getParameter("routeId"));
         routeDao.delete(routeId);
         transactionManager.commit();
+        request.setAttribute("successMessage", "success.route.deleted");
         return getAllRoutesCommand.execute(request, response);
     }
 }

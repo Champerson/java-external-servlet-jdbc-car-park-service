@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import static com.car.park.service.model.UserRole.ADMIN;
-import static com.car.park.service.model.UserRole.DRIVER;
+import static com.car.park.service.model.UserRole.ROLE_ADMIN;
+import static com.car.park.service.model.UserRole.ROLE_DRIVER;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -25,8 +25,9 @@ import static org.mockito.Mockito.when;
 public class AuthorizationCommandTest {
 
     private static final String INDEX_PAGE = "index.jsp";
-    private static final String ADMIN_MENU_PAGE = "WEB-INF/admin-menu.jsp";
+    private static final String ADMIN_MENU_PAGE = "WEB-INF/jsp/admin-menu-page.jsp";
     private static final String USER_PASSWORD = "password";
+    private static final String USER_LOGIN = "login";
     private static final long USER_ID = 1;
 
     @InjectMocks
@@ -71,6 +72,8 @@ public class AuthorizationCommandTest {
         when(user.getPassword()).thenReturn(USER_PASSWORD);
         when(user.getId()).thenReturn(USER_ID);
         when(httpServletRequest.getSession(true)).thenReturn(httpSession);
+        when(httpServletRequest.getParameter("login")).thenReturn(USER_LOGIN);
+        when(httpServletRequest.getParameter("password")).thenReturn(USER_PASSWORD);
 
         authorizationCommand.execute(httpServletRequest, httpServletResponse);
 
@@ -79,6 +82,21 @@ public class AuthorizationCommandTest {
 
     @Test
     public void shouldReturnIndexPageWhenRoleNotAdminOrUser() {
+        when(passwordEncoder.encode(any())).thenReturn(USER_PASSWORD);
+        when(userDao.read(any())).thenReturn(user);
+        when(user.getPassword()).thenReturn(USER_PASSWORD);
+        when(user.getId()).thenReturn(USER_ID);
+        when(httpServletRequest.getSession(true)).thenReturn(httpSession);
+        when(httpServletRequest.getParameter("login")).thenReturn(USER_LOGIN);
+        when(httpServletRequest.getParameter("password")).thenReturn(USER_PASSWORD);
+
+        String resultPage = authorizationCommand.execute(httpServletRequest, httpServletResponse);
+
+        assertEquals(INDEX_PAGE, resultPage);
+    }
+
+    @Test
+    public void shouldReturnIndexPageWhenCredentialsInvalid() {
         when(passwordEncoder.encode(any())).thenReturn(USER_PASSWORD);
         when(userDao.read(any())).thenReturn(user);
         when(user.getPassword()).thenReturn(USER_PASSWORD);
@@ -96,8 +114,10 @@ public class AuthorizationCommandTest {
         when(userDao.read(any())).thenReturn(user);
         when(user.getPassword()).thenReturn(USER_PASSWORD);
         when(user.getId()).thenReturn(USER_ID);
-        when(user.getAccessRole()).thenReturn(ADMIN);
+        when(user.getAccessRole()).thenReturn(ROLE_ADMIN);
         when(httpServletRequest.getSession(true)).thenReturn(httpSession);
+        when(httpServletRequest.getParameter("login")).thenReturn(USER_LOGIN);
+        when(httpServletRequest.getParameter("password")).thenReturn(USER_PASSWORD);
 
         String resultPage = authorizationCommand.execute(httpServletRequest, httpServletResponse);
 
@@ -110,8 +130,10 @@ public class AuthorizationCommandTest {
         when(userDao.read(any())).thenReturn(user);
         when(user.getPassword()).thenReturn(USER_PASSWORD);
         when(user.getId()).thenReturn(USER_ID);
-        when(user.getAccessRole()).thenReturn(DRIVER);
+        when(user.getAccessRole()).thenReturn(ROLE_DRIVER);
         when(httpServletRequest.getSession(true)).thenReturn(httpSession);
+        when(httpServletRequest.getParameter("login")).thenReturn(USER_LOGIN);
+        when(httpServletRequest.getParameter("password")).thenReturn(USER_PASSWORD);
 
         authorizationCommand.execute(httpServletRequest, httpServletResponse);
 

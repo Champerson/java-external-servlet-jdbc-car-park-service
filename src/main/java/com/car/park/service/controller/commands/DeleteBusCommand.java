@@ -37,6 +37,7 @@ public class DeleteBusCommand implements Command {
         }
         busDao.delete(busId);
         transactionManager.commit();
+        request.setAttribute("successMessage", "success.bus.deleted");
         return getAllBusesCommand.execute(request, response);
     }
 }

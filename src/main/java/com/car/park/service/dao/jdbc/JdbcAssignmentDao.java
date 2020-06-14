@@ -7,14 +7,10 @@ import com.car.park.service.model.Bus;
 import com.car.park.service.model.Route;
 import com.car.park.service.model.User;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 import static java.lang.String.format;
-import static java.sql.Types.NULL;
 
 public class JdbcAssignmentDao extends AbstractJdbcDao<Assignment> implements AssignmentDao {
 
@@ -86,7 +82,7 @@ public class JdbcAssignmentDao extends AbstractJdbcDao<Assignment> implements As
         if (driver != null) {
             statement.setLong(5, driver.getId());
         } else {
-            statement.setLong(5, NULL);
+            statement.setNull(5, Types.BIGINT);
         }
     }
 

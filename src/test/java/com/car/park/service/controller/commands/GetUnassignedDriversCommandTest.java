@@ -11,8 +11,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.car.park.service.model.UserRole.ADMIN;
-import static com.car.park.service.model.UserRole.DRIVER;
+import static com.car.park.service.model.UserRole.ROLE_ADMIN;
+import static com.car.park.service.model.UserRole.ROLE_DRIVER;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class GetUnassignedDriversCommandTest {
 
-    private static final String UNASSIGNED_DRIVERS_PAGE = "WEB-INF/unassigned-drivers.jsp";
+    private static final String UNASSIGNED_DRIVERS_PAGE = "WEB-INF/jsp/admin-route-assign-driver-page.jsp";
     private static final String ROUTE_ID = "routeId";
     private static final String ASSIGNMENT_ID = "assignmentId";
 
@@ -61,8 +61,8 @@ public class GetUnassignedDriversCommandTest {
     public void shouldSetUsersFilteredByDriverRoleToRequest() {
         User userAdmin = new User();
         User userDriver = new User();
-        userAdmin.setAccessRole(ADMIN);
-        userDriver.setAccessRole(DRIVER);
+        userAdmin.setAccessRole(ROLE_ADMIN);
+        userDriver.setAccessRole(ROLE_DRIVER);
         when(userDao.readAllWithoutAssignment()).thenReturn(asList(userAdmin, userDriver));
 
         getUnassignedDriversCommand.execute(httpServletRequest, httpServletResponse);

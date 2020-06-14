@@ -6,11 +6,16 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 
+/**
+ * This filter handles all exceptions for all requests.
+ * In case of exception it rollbacks transaction, closes connection, logs error and redirects to an error page.
+ */
 public class GlobalExceptionHandlerFilter implements Filter {
 
     private static final Logger LOG = Logger.getLogger(GlobalExceptionHandlerFilter.class);
     private static final String ENCODING = "UTF-8";
-    private static final String ERROR_PAGE = "WEB-INF/error.jsp";
+    private static final String ERROR_PAGE = "WEB-INF/jsp/error-page.jsp";
+
     private final TransactionManager transactionManager = TransactionManager.getInstance();
 
     @Override
@@ -25,10 +30,10 @@ public class GlobalExceptionHandlerFilter implements Filter {
             filterChain.doFilter(request, response);
         } catch (UncheckedSQLException e) {
             handleException(e);
-            forwardErrorRequest(request, response, "error.message.database");
+            forwardErrorRequest(request, response, "error.database.failure");
         } catch (Throwable e) {
             handleException(e);
-            forwardErrorRequest(request, response, "error.message.general");
+            forwardErrorRequest(request, response, "error.unknown");
         } finally {
             transactionManager.closeConnection();
         }

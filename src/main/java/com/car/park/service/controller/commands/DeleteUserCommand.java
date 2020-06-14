@@ -37,6 +37,8 @@ public class DeleteUserCommand implements Command {
         }
         userDao.delete(userId);
         transactionManager.commit();
+        request.setAttribute("successMessage", "success.user.deleted");
+
         return getAllUsersCommand.execute(request, response);
     }
 }

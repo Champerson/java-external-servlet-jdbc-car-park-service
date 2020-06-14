@@ -1,8 +1,8 @@
 package com.car.park.service.controller.commands;
 
 import com.car.park.service.controller.Command;
-import com.car.park.service.controller.validation.BusValidationErrors;
-import com.car.park.service.controller.validation.BusValidationErrorsBuilder;
+import com.car.park.service.controller.validation.BusValidationDto;
+import com.car.park.service.controller.validation.BusValidationResultBuilder;
 import com.car.park.service.dao.BusDao;
 import com.car.park.service.dao.support.TransactionManager;
 import com.car.park.service.model.Bus;
@@ -14,7 +14,7 @@ import static java.lang.Integer.parseInt;
 
 public class CreateNewBusCommand implements Command {
 
-    private static final String NEW_BUS_PAGE = "WEB-INF/new-bus.jsp";
+    private static final String NEW_BUS_PAGE = "WEB-INF/jsp/admin-bus-create-page.jsp";
 
     private final BusDao busDao;
     private final TransactionManager transactionManager;
@@ -37,7 +37,7 @@ public class CreateNewBusCommand implements Command {
         String notesEn = request.getParameter("notesEn");
         String notesUa = request.getParameter("notesUa");
 
-        BusValidationErrors busValidationErrors = new BusValidationErrorsBuilder()
+        BusValidationDto busValidationDto = new BusValidationResultBuilder()
                 .validateNumber(number)
                 .validateModel(model)
                 .validatePassengersCapacity(passengersCapacity)
@@ -47,15 +47,10 @@ public class CreateNewBusCommand implements Command {
                 .validateNotesEn(notesEn)
                 .validateNotesUa(notesUa)
                 .errors();
+        checkBusNumberExist(busValidationDto);
 
-        if (busValidationErrors.getNumber() != null) {
-            if (busDao.read(number) != null) {
-                busValidationErrors.setNumber("bus.exist");
-            }
-        }
-
-        if (busValidationErrors.isPresent()) {
-            request.setAttribute("validationErrors", busValidationErrors);
+        if (busValidationDto.validationFailed()) {
+            request.getSession().setAttribute("validationResult", busValidationDto);
             return NEW_BUS_PAGE;
         } else {
             Bus bus = new Bus();
@@ -69,8 +64,17 @@ public class CreateNewBusCommand implements Command {
             bus.getLocalizedNotes().put("uk_UA", notesUa);
             busDao.create(bus);
             transactionManager.commit();
-
+            request.setAttribute("successMessage", "success.bus.created");
+            request.getSession().removeAttribute("validationResult");
             return getAllBusesCommand.execute(request, response);
+        }
+    }
+
+    private void checkBusNumberExist(BusValidationDto busValidationDto) {
+        if (busValidationDto.getNumberError() == null) {
+            if (busDao.read(busValidationDto.getNumber()) != null) {
+                busValidationDto.setNumberError("validation.bus.number.exist");
+            }
         }
     }
 }

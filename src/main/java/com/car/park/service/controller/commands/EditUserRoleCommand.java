@@ -32,6 +32,7 @@ public class EditUserRoleCommand implements Command {
         user.setAccessRole(UserRole.valueOf(userRole.toUpperCase()));
         userDao.update(user);
         transactionManager.commit();
+        request.setAttribute("successMessage", "success.user.role.changed");
 
         return getUserDetailsCommand.execute(request, response);
     }

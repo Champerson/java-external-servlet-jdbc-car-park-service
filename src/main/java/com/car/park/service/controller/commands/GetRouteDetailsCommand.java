@@ -8,11 +8,12 @@ import com.car.park.service.model.Route;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.car.park.service.controller.CommandMapping.Commands.EDIT_ROUTE;
 import static java.lang.Long.parseLong;
 
 public class GetRouteDetailsCommand implements Command {
 
-    private static final String ROUTE_INFO_PAGE = "WEB-INF/route-details.jsp";
+    private static final String ROUTE_INFO_PAGE = "WEB-INF/jsp/admin-route-details-page.jsp";
 
     private final RouteDao routeDao;
     private final AssignmentDao assignmentDao;
@@ -24,24 +25,12 @@ public class GetRouteDetailsCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String routeIdRequest = request.getParameter("routeId");
+        cleanUpValidationResult(request, EDIT_ROUTE);
+        long routeId = parseLong(request.getParameter("routeId"));
+        Route route = routeDao.read(routeId);
+        route.setAssignments(assignmentDao.readByRouteId(route.getId()));
 
-        if (routeIdRequest != null && !routeIdRequest.isEmpty()) {
-            long routeId = parseLong(routeIdRequest);
-
-            Route route = routeDao.read(routeId);
-            route.setAssignments(assignmentDao.readByRouteId(route.getId()));
-
-            request.setAttribute("route", route);
-            request.getSession().setAttribute("routeId", routeId);
-        } else {
-            long routeId = (long) request.getSession().getAttribute("routeId");
-
-            Route route = routeDao.read(routeId);
-            route.setAssignments(assignmentDao.readByRouteId(route.getId()));
-
-            request.setAttribute("route", route);
-        }
+        request.setAttribute("route", route);
         return ROUTE_INFO_PAGE;
     }
 }
