@@ -4,7 +4,8 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class RouteValidationResultBuilder {
 
-    private final static String NUMBER_REGEX = "\\d{0,4}";
+    private final static String NUMBER_REGEX = "\\d{1,4}";
+    private final static String LENGTH_REGEX = "^[1-9]\\d{0,2}$";
     private final static String DESCRIPTION_EN_REGEX = "([a-zA-Z\\-\\ \\.\\,\\!\\?\\_]+){0,255}";
     private final static String DESCRIPTION_UA_REGEX = "([\\p{L}\\'\\-\\ \\.\\,\\!\\?\\_]+){0,255}";
 
@@ -25,7 +26,7 @@ public class RouteValidationResultBuilder {
         routeValidationDto.setLength(length);
         if (isEmpty(length)) {
             routeValidationDto.setLengthError("validation.route.length.empty");
-        } else if (!validator.isPositiveNumber(length)) {
+        } else if (!validator.isValidByRegex(length, LENGTH_REGEX)) {
             routeValidationDto.setLengthError("validation.route.length.invalid");
         }
         return this;

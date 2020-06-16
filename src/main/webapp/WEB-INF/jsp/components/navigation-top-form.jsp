@@ -21,7 +21,7 @@
                 <c:if test="${not empty param.successMessage}">
                     <input name="successMessage" type="hidden" value="${param.successMessage}">
                 </c:if>
-                <button class="btn btn-outline-primary" type="submit"><fmt:message key="button.locale.en" bundle="${bundle}"/></button>
+                <button class="btn btn-outline-primary"><fmt:message key="button.locale.en" bundle="${bundle}"/></button>
             </form>
         </li>
         <li class="nav-item ml-2">
@@ -37,14 +37,14 @@
                 <c:if test="${not empty param.successMessage}">
                     <input name="successMessage" type="hidden" value="${param.successMessage}">
                 </c:if>
-                <button class="btn btn-outline-primary" type="submit"><fmt:message key="button.locale.ua" bundle="${bundle}"/></button>
+                <button class="btn btn-outline-primary"><fmt:message key="button.locale.ua" bundle="${bundle}"/></button>
             </form>
         </li>
         <c:if test="${not empty sessionScope.userId}">
             <li class="nav-item ml-2">
                 <form name="logout" action="./controller" method="post">
                     <input name="command" type="hidden" value="logout">
-                    <button class="btn btn-outline-secondary bg-light" type="submit"><fmt:message key="button.logout" bundle="${bundle}"/></button>
+                    <button class="btn btn-outline-secondary bg-light"><fmt:message key="button.logout" bundle="${bundle}"/></button>
                 </form>
             </li>
         </c:if>
@@ -53,7 +53,7 @@
                 <form name="back" action="./controller" method="post">
                     <input name="command" type="hidden" value="redirect">
                     <input name="pageToRedirect" type="hidden" value="WEB-INF/jsp/admin-menu-page.jsp">
-                    <button class="btn btn-outline-secondary bg-light" type="submit"><fmt:message key="button.back" bundle="${bundle}"/></button>
+                    <button class="btn btn-outline-secondary bg-light"><fmt:message key="button.back" bundle="${bundle}"/></button>
                 </form>
             </li>
         </c:if>

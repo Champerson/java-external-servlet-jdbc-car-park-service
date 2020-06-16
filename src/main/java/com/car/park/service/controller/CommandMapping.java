@@ -106,7 +106,7 @@ public class CommandMapping {
                 new DeleteAssignmentCommand(assignmentDao, transactionManager, GET_ROUTE_DETAILS.command)
         ),
         DELETE_ROUTE(
-                new DeleteRouteCommand(routeDao, transactionManager, GET_ALL_ROUTES.command)
+                new DeleteRouteCommand(routeDao, assignmentDao, transactionManager, GET_ALL_ROUTES.command)
         );
 
         Command command;

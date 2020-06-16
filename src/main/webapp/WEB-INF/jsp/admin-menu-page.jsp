@@ -26,15 +26,15 @@
         <div class="mx-auto" style="width: 300px">
             <form action="./controller" method="POST">
                 <input name="command" type="hidden" value="get_all_users">
-                <button type="submit" style="width:100%" class="btn btn-outline-primary"><fmt:message key="button.get.all.users" bundle="${bundle}"/></button>
+                <button style="width:100%" class="btn btn-outline-primary"><fmt:message key="button.get.all.users" bundle="${bundle}"/></button>
             </form>
             <form action="./controller" method="POST">
                 <input name="command" type="hidden" value="get_all_buses">
-                <button type="submit" style="width:100%" class="btn btn-outline-primary mt-2"><fmt:message key="button.get.all.buses" bundle="${bundle}"/></button>
+                <button style="width:100%" class="btn btn-outline-primary mt-2"><fmt:message key="button.get.all.buses" bundle="${bundle}"/></button>
             </form>
             <form action="./controller" method="POST">
                 <input name="command" type="hidden" value="get_all_routes">
-                <button type="submit" style="width:100%" class="btn btn-outline-primary mt-2"><fmt:message key="button.get.all.routes" bundle="${bundle}"/></button>
+                <button style="width:100%" class="btn btn-outline-primary mt-2"><fmt:message key="button.get.all.routes" bundle="${bundle}"/></button>
             </form>
         </div>
     </body>

@@ -43,6 +43,6 @@
             <label for="input-descriptionUa"><fmt:message key="label.route.description.ua" bundle="${bundle}"/><font color="red"> *</font></label>
             <carpark:input name="descriptionUa" value="${descriptionUa}" validated="${validated}" error="${validationResult.descriptionUaError}"/>
         </div>
-        <button class="btn btn-primary" type="submit" style="width:100%"><fmt:message key="button.save" bundle="${bundle}"/></button>
+        <button class="btn btn-primary" style="width:100%"><fmt:message key="button.save" bundle="${bundle}"/></button>
     </form>
 </div>

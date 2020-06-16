@@ -153,7 +153,7 @@
                                     <label for="input-age"><fmt:message key="label.user.age" bundle="${bundle}"/><font color="red"> *</font></label>
                                     <carpark:input name="age" value="${age}" validated="${validated}" error="${validationResult.ageError}"/>
                                 </div>
-                                <button class="btn btn-primary" type="submit" style="width:100%"><fmt:message key="button.save" bundle="${bundle}"/></button>
+                                <button class="btn btn-primary" style="width:100%"><fmt:message key="button.save" bundle="${bundle}"/></button>
                             </form>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
                                     <label for="input-newPassword"><fmt:message key="label.user.password.new" bundle="${bundle}"/><font color="red"> *</font></label>
                                     <carpark:input name="newPassword" value="${validationResult.newPassword}" validated="${validatedPassword}" error="${validationResult.newPasswordError}"/>
                                 </div>
-                                <button class="btn btn-primary" type="submit" style="width:100%"><fmt:message key="button.save" bundle="${bundle}"/></button>
+                                <button class="btn btn-primary" style="width:100%"><fmt:message key="button.save" bundle="${bundle}"/></button>
                             </form>
                         </div>
                     </div>

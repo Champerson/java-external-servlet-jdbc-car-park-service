@@ -67,6 +67,6 @@
             <label for="input-notesUa"><fmt:message key="label.bus.notes.ua" bundle="${bundle}"/></label>
             <carpark:input name="notesUa" value="${notesUa}" validated="${validated}" error="${validationResult.notesUaError}"/>
         </div>
-        <button class="btn btn-primary" type="submit" style="width:100%"><fmt:message key="button.save" bundle="${bundle}"/></button>
+        <button class="btn btn-primary" style="width:100%"><fmt:message key="button.save" bundle="${bundle}"/></button>
     </form>
 </div>

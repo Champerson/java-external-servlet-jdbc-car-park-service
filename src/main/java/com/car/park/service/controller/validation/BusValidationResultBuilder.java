@@ -6,8 +6,8 @@ public class BusValidationResultBuilder {
 
     private final static String NUMBER_REGEX = "^[A-Z]{2}\\d{4}[A-Z]{2}$";
     private final static String MODEL_REGEX = "^([a-zA-Z])\\w{0,20}$";
-    private final static String PASSENGERS_CAPACITY_REGEX = "^\\d{0,4}$";
-    private final static String MILEAGE_REGEX = "\\d{0,9}";
+    private final static String PASSENGERS_CAPACITY_REGEX = "[1-9]\\d{0,2}";
+    private final static String MILEAGE_REGEX = "[1-9]\\d{0,5}";
     private final static String COLOUR_EN_REGEX = "([a-zA-Z\\-]+){0,45}";
     private final static String COLOUR_UA_REGEX = "^([\\p{L}\\'\\-]+){0,45}";
     private final static String NOTES_EN_REGEX = "([a-zA-Z\\-\\ \\.\\,\\!\\?\\_]+){0,255}";

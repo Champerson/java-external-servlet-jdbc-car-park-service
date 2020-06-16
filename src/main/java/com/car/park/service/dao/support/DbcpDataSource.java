@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class DbcpDataSource {
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/car_park_service_db";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/car_park_service_db?useUnicode=true&serverTimezone=UTC";
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "root";
 

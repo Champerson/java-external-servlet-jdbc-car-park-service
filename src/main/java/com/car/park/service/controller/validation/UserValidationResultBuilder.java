@@ -4,12 +4,12 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class UserValidationResultBuilder {
 
-    private final static String LOGIN_REGEX = "^[a-zA-Z0-9_-]{1,15}$";
-    private final static String PASSWORD_REGEX = "^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$";
+    private final static String LOGIN_REGEX = "^[a-zA-Z0-9]{1,20}$";
+    private final static String PASSWORD_REGEX = "^[a-zA-Z0-9]{1,20}$";
     private final static String EMAIL_REGEX = "^(.+)@(.+)$";
     private final static String PHONE_REGEX = "\\d{10}";
-    private final static String AGE_REGEX = "[1-9]{0,2}";
-    private final static String NAME_REGEX = "^[a-zA-Z0-9_-]{1,15}$";
+    private final static String AGE_REGEX = "[1-9]\\d{0,1}";
+    private final static String NAME_REGEX = "^[a-zA-Z\\s]{1,20}$";
 
     private final UserValidationDto userValidationDto = new UserValidationDto();
     private final Validator validator = new Validator();

@@ -52,12 +52,12 @@
                     </div>
                     <input type="password" class="form-control" id="inputPassword" aria-describedby="inputPasswordLabel" name="password">
                 </div>
-                <button type="submit" style="width:100%" class="btn btn-primary"><fmt:message key="button.authorization" bundle="${bundle}"/></button>
+                <button style="width:100%" class="btn btn-primary"><fmt:message key="button.authorization" bundle="${bundle}"/></button>
             </form></br>
             <form name="openRegistration" action="./controller" method="post">
                 <input name="command" type="hidden" value="redirect">
                 <input name="pageToRedirect" type="hidden" value="WEB-INF/jsp/registration-page.jsp">
-                <button type="submit" style="width:100%" class="btn btn-outline-primary"><fmt:message key="button.open.registration" bundle="${bundle}"/></button>
+                <button style="width:100%" class="btn btn-outline-primary"><fmt:message key="button.open.registration" bundle="${bundle}"/></button>
             </form>
         </div>
     </body>

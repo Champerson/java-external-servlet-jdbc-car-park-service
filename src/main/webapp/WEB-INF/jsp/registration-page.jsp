@@ -53,7 +53,7 @@
                     <label for="input-age"><fmt:message key="label.user.age" bundle="${bundle}"/><font color="red"> *</font></label>
                     <carpark:input name="age" value="${validationResult.age}" validated="${validated}" error="${validationResult.ageError}" placeholder="35"/>
                 </div>
-                <button class="btn btn-primary" type="submit"><fmt:message key="button.register" bundle="${bundle}"/></button>
+                <button class="btn btn-primary"><fmt:message key="button.register" bundle="${bundle}"/></button>
             </form>
         </div>
     </body>
