@@ -59,8 +59,10 @@ public class EditUserPasswordCommand implements Command {
     }
 
     private void checkOldPasswordMatches(UserValidationDto userValidationDto, User user) {
-        if (!passwordEncoder.encode(userValidationDto.getOldPassword()).equals(user.getPassword())) {
-            userValidationDto.setOldPasswordError("validation.user.password.old.incorrect");
+        if (userValidationDto.getOldPasswordError() == null) {
+            if (!passwordEncoder.encode(userValidationDto.getOldPassword()).equals(user.getPassword())) {
+                userValidationDto.setOldPasswordError("validation.user.password.old.incorrect");
+            }
         }
     }
 }

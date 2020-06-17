@@ -166,11 +166,11 @@
                                 <input name="command" type="hidden" value="edit_user_password">
                                 <div class="form-group">
                                     <label for="input-oldPassword"><fmt:message key="label.user.password.old" bundle="${bundle}"/><font color="red"> *</font></label>
-                                    <carpark:input name="oldPassword" value="${validationResult.oldPassword}" validated="${validatedPassword}" error="${validationResult.oldPasswordError}"/>
+                                    <carpark:input name="oldPassword" value="${oldPassword}" validated="${validatedPassword}" error="${validationResult.oldPasswordError}"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="input-newPassword"><fmt:message key="label.user.password.new" bundle="${bundle}"/><font color="red"> *</font></label>
-                                    <carpark:input name="newPassword" value="${validationResult.newPassword}" validated="${validatedPassword}" error="${validationResult.newPasswordError}"/>
+                                    <carpark:input name="newPassword" value="${newPassword}" validated="${validatedPassword}" error="${validationResult.newPasswordError}"/>
                                 </div>
                                 <button class="btn btn-primary" style="width:100%"><fmt:message key="button.save" bundle="${bundle}"/></button>
                             </form>

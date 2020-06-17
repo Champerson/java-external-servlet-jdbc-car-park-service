@@ -25,7 +25,7 @@ public class GetUserOfficeCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        cleanUpValidationResult(request, EDIT_USER);
+        cleanUpUserValidationResult(request);
         long sessionUserId = (long) request.getSession().getAttribute("userId");
         User user = userDao.read(sessionUserId);
         Assignment assignment = assignmentDao.readByDriverId(user.getId());
@@ -34,5 +34,16 @@ public class GetUserOfficeCommand implements Command {
         request.setAttribute("user", user);
         request.setAttribute("command", GET_USER_OFFICE.name());
         return USER_OFFICE_PAGE;
+    }
+
+    private void cleanUpUserValidationResult(HttpServletRequest request) {
+        String initialCommand = request.getParameter("command").toUpperCase();
+        boolean localeSwitching = request.getParameter("locale") != null;
+        boolean userDetailsModification = EDIT_USER.equals(valueOf(initialCommand));
+        boolean userPasswordModification = EDIT_USER_PASSWORD.equals(valueOf(initialCommand));
+
+        if (!localeSwitching && !userDetailsModification && !userPasswordModification) {
+            request.getSession().removeAttribute("validationResult");
+        }
     }
 }
