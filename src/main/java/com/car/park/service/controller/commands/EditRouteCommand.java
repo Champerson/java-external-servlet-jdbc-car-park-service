@@ -40,6 +40,7 @@ public class EditRouteCommand implements Command {
                 .validateDescriptionEn(descriptionEn)
                 .validateDescriptionUa(descriptionUa)
                 .errors();
+        checkRouteNewNumberExist(routeValidationDto, routeId);
 
         if (routeValidationDto.validationFailed()) {
             request.getSession().setAttribute("validationResult", routeValidationDto);
@@ -55,5 +56,14 @@ public class EditRouteCommand implements Command {
             request.getSession().removeAttribute("validationResult");
         }
         return getRouteDetails.execute(request, response);
+    }
+
+    private void checkRouteNewNumberExist(RouteValidationDto routeValidationDto, long routeId) {
+        boolean busNumberModified = !routeDao.read(routeId).getNumber().equals(routeValidationDto.getNumber());
+        if (routeValidationDto.getNumberError() == null && busNumberModified) {
+            if (routeDao.read(routeValidationDto.getNumber()) != null) {
+                routeValidationDto.setNumberError("validation.route.number.exist");
+            }
+        }
     }
 }

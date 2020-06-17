@@ -48,6 +48,7 @@ public class EditBusCommand implements Command {
                 .validateNotesEn(notesEn)
                 .validateNotesUa(notesUa)
                 .errors();
+        checkBusNewNumberExist(busValidationDto, busId);
 
         if (busValidationDto.validationFailed()) {
             request.getSession().setAttribute("validationResult", busValidationDto);
@@ -67,5 +68,14 @@ public class EditBusCommand implements Command {
             request.getSession().removeAttribute("validationResult");
         }
         return getBusDetailsCommand.execute(request, response);
+    }
+
+    private void checkBusNewNumberExist(BusValidationDto busValidationDto, long busId) {
+        boolean busNumberModified = !busDao.read(busId).getNumber().equals(busValidationDto.getNumber());
+        if (busValidationDto.getNumberError() == null && busNumberModified) {
+            if (busDao.read(busValidationDto.getNumber()) != null) {
+                busValidationDto.setNumberError("validation.bus.number.exist");
+            }
+        }
     }
 }
