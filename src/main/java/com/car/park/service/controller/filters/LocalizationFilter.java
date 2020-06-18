@@ -39,10 +39,10 @@ public class LocalizationFilter implements Filter {
     }
 
     private void passParametersToNextPage(HttpServletRequest request) {
-        for (Map.Entry<String, String []> parameters : request.getParameterMap().entrySet()) {
-            String[] parameterValue = parameters.getValue();
+        for (Map.Entry<String, String []> parameter : request.getParameterMap().entrySet()) {
+            String[] parameterValue = parameter.getValue();
             if (parameterValue.length != 0) {
-                request.setAttribute(parameters.getKey(), parameterValue[0]);
+                request.setAttribute(parameter.getKey(), parameterValue[0]);
             }
         }
     }

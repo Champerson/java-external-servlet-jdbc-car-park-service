@@ -33,7 +33,9 @@ public class DeleteUserCommand implements Command {
         long userId = parseLong(request.getParameter("userId"));
         Assignment userAssignment = assignmentDao.readByDriverId(userId);
         if (userAssignment != null) {
-            assignmentDao.delete(userAssignment.getId());
+            userAssignment.setDriver(null);
+            userAssignment.setAcceptedByDriver(false);
+            assignmentDao.update(userAssignment);
         }
         userDao.delete(userId);
         transactionManager.commit();
