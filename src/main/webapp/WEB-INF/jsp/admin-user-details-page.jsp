@@ -5,6 +5,7 @@
 <fmt:requestEncoding value="UTF-8" />
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="i18n.content" var="bundle"/>
+<c:set var="userId" value="${user.id}" scope="request"/>
 
 <!doctype html>
 <html lang="en">
@@ -19,8 +20,6 @@
     <body>
         <jsp:include page="components/navigation-top-form.jsp" >
             <jsp:param name="command" value="get_user_details" />
-            <jsp:param name="additionalParameterName" value="userId" />
-            <jsp:param name="additionalParameterValue" value="${user.id}" />
             <jsp:param name="backButton" value="true" />
             <jsp:param name="successMessage" value="${successMessage}" />
         </jsp:include>

@@ -15,11 +15,23 @@
                 <c:if test="${not empty param.pageToRedirect}">
                     <input name="pageToRedirect" type="hidden" value="${param.pageToRedirect}">
                 </c:if>
-                <c:if test="${not empty param.additionalParameterName}">
-                    <input name="${param.additionalParameterName}" type="hidden" value="${param.additionalParameterValue}">
-                </c:if>
                 <c:if test="${not empty param.successMessage}">
                     <input name="successMessage" type="hidden" value="${param.successMessage}">
+                </c:if>
+                <c:if test="${not empty param.errorMessage}">
+                    <input name="errorMessage" type="hidden" value="${param.errorMessage}">
+                </c:if>
+                <c:if test="${not empty userId}">
+                    <input name="userId" type="hidden" value="${userId}">
+                </c:if>
+                <c:if test="${not empty busId}">
+                    <input name="busId" type="hidden" value="${busId}">
+                </c:if>
+                <c:if test="${not empty routeId}">
+                    <input name="routeId" type="hidden" value="${routeId}">
+                </c:if>
+                <c:if test="${not empty assignmentId}">
+                    <input name="assignmentId" type="hidden" value="${assignmentId}">
                 </c:if>
                 <button class="btn btn-outline-primary"><fmt:message key="button.locale.en" bundle="${bundle}"/></button>
             </form>
@@ -31,11 +43,23 @@
                 <c:if test="${not empty param.pageToRedirect}">
                     <input name="pageToRedirect" type="hidden" value="${param.pageToRedirect}">
                 </c:if>
-                <c:if test="${not empty param.additionalParameterName}">
-                    <input name="${param.additionalParameterName}" type="hidden" value="${param.additionalParameterValue}">
-                </c:if>
                 <c:if test="${not empty param.successMessage}">
                     <input name="successMessage" type="hidden" value="${param.successMessage}">
+                </c:if>
+                <c:if test="${not empty param.errorMessage}">
+                    <input name="errorMessage" type="hidden" value="${param.errorMessage}">
+                </c:if>
+                <c:if test="${not empty userId}">
+                    <input name="userId" type="hidden" value="${userId}">
+                </c:if>
+                <c:if test="${not empty busId}">
+                    <input name="busId" type="hidden" value="${busId}">
+                </c:if>
+                <c:if test="${not empty routeId}">
+                    <input name="routeId" type="hidden" value="${routeId}">
+                </c:if>
+                <c:if test="${not empty assignmentId}">
+                    <input name="assignmentId" type="hidden" value="${assignmentId}">
                 </c:if>
                 <button class="btn btn-outline-primary"><fmt:message key="button.locale.ua" bundle="${bundle}"/></button>
             </form>

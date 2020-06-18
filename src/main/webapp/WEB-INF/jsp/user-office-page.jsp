@@ -6,6 +6,7 @@
 <fmt:requestEncoding value="UTF-8" />
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="i18n.content" var="bundle"/>
+<c:set var="userId" value="${user.id}" scope="request"/>
 <c:set var="validationResult" value="${sessionScope.validationResult}"/>
 <c:set var="validatedPassword" value="${not empty validationResult.oldPassword or not empty validationResult.oldPasswordError}"/>
 <c:set var="validated" value="${not empty validationResult and not validatedPassword}"/>
@@ -41,8 +42,6 @@
     <body>
         <jsp:include page="components/navigation-top-form.jsp" >
             <jsp:param name="command" value="get_user_office" />
-            <jsp:param name="additionalParameterName" value="userId" />
-            <jsp:param name="additionalParameterValue" value="${user.id}" />
             <jsp:param name="successMessage" value="${successMessage}" />
         </jsp:include>
 

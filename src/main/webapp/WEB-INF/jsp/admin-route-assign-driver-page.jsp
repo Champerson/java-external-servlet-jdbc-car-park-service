@@ -19,8 +19,6 @@
     <body>
         <jsp:include page="components/navigation-top-form.jsp" >
             <jsp:param name="command" value="get_unassigned_drivers" />
-            <jsp:param name="additionalParameterName" value="routeId" />
-            <jsp:param name="additionalParameterValue" value="${routeId}" />
             <jsp:param name="backButton" value="true" />
         </jsp:include>
 

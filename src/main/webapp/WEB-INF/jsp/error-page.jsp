@@ -20,8 +20,7 @@
         <jsp:include page="components/navigation-top-form.jsp" >
             <jsp:param name="command" value="redirect" />
             <jsp:param name="pageToRedirect" value="WEB-INF/jsp/error-page.jsp" />
-            <jsp:param name="additionalParameterName" value="errorMessage" />
-            <jsp:param name="additionalParameterValue" value="${errorMessage}" />
+            <jsp:param name="errorMessage" value="${errorMessage}" />
         </jsp:include>
 
         <div class="card mx-auto" style="width: 18rem">

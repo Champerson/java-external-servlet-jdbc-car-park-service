@@ -6,6 +6,7 @@
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="i18n.content" var="bundle"/>
 <c:set var="route" value="${route}" scope="request"/>
+<c:set var="routeId" value="${route.id}" scope="request"/>
 
 <!doctype html>
 <html lang="en">
@@ -20,8 +21,6 @@
     <body>
         <jsp:include page="components/navigation-top-form.jsp" >
             <jsp:param name="command" value="get_route_details" />
-            <jsp:param name="additionalParameterName" value="routeId" />
-            <jsp:param name="additionalParameterValue" value="${route.id}" />
             <jsp:param name="successMessage" value="${successMessage}" />
             <jsp:param name="backButton" value="true" />
         </jsp:include>

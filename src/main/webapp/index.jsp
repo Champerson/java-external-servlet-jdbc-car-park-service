@@ -21,8 +21,7 @@
             <jsp:param name="command" value="redirect" />
             <jsp:param name="pageToRedirect" value="index.jsp" />
             <jsp:param name="successMessage" value="${successMessage}" />
-            <jsp:param name="additionalParameterName" value="errorMessage" />
-            <jsp:param name="additionalParameterValue" value="${errorMessage}" />
+            <jsp:param name="errorMessage" value="${errorMessage}" />
         </jsp:include>
 
         <c:if test="${not empty successMessage}">
