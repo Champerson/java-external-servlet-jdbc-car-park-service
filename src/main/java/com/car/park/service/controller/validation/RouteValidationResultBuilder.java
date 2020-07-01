@@ -5,7 +5,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class RouteValidationResultBuilder {
 
     private final static String NUMBER_REGEX = "\\d{1,4}";
-    private final static String LENGTH_REGEX = "^[1-9]\\d{0,2}$";
+    private final static String LENGTH_REGEX = "^[1-9]\\d{0,5}$";
     private final static String DESCRIPTION_EN_REGEX = "([a-zA-Z\\-\\ \\.\\,\\!\\?\\_]+){0,255}";
     private final static String DESCRIPTION_UA_REGEX = "([\\p{L}\\'\\-\\ \\.\\,\\!\\?\\_]+){0,255}";
 

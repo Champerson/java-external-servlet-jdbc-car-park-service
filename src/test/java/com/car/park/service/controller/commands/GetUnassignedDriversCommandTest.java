@@ -33,28 +33,28 @@ public class GetUnassignedDriversCommandTest {
     private UserDao userDao;
 
     @Mock
-    private HttpServletRequest httpServletRequest;
+    private HttpServletRequest request;
     @Mock
-    private HttpServletResponse httpServletResponse;
+    private HttpServletResponse response;
 
     @Test
     public void shouldSetRouteIdToRequest() {
         when(userDao.readAllWithoutAssignment()).thenReturn(emptyList());
-        when(httpServletRequest.getParameter("routeId")).thenReturn(ROUTE_ID);
+        when(request.getParameter("routeId")).thenReturn(ROUTE_ID);
 
-        getUnassignedDriversCommand.execute(httpServletRequest, httpServletResponse);
+        getUnassignedDriversCommand.execute(request, response);
 
-        verify(httpServletRequest).setAttribute("routeId", ROUTE_ID);
+        verify(request).setAttribute("routeId", ROUTE_ID);
     }
 
     @Test
     public void shouldSetAssignmentIdToRequest() {
         when(userDao.readAllWithoutAssignment()).thenReturn(emptyList());
-        when(httpServletRequest.getParameter("assignmentId")).thenReturn(ASSIGNMENT_ID);
+        when(request.getParameter("assignmentId")).thenReturn(ASSIGNMENT_ID);
 
-        getUnassignedDriversCommand.execute(httpServletRequest, httpServletResponse);
+        getUnassignedDriversCommand.execute(request, response);
 
-        verify(httpServletRequest).setAttribute("assignmentId", ASSIGNMENT_ID);
+        verify(request).setAttribute("assignmentId", ASSIGNMENT_ID);
     }
 
     @Test
@@ -65,16 +65,16 @@ public class GetUnassignedDriversCommandTest {
         userDriver.setAccessRole(ROLE_DRIVER);
         when(userDao.readAllWithoutAssignment()).thenReturn(asList(userAdmin, userDriver));
 
-        getUnassignedDriversCommand.execute(httpServletRequest, httpServletResponse);
+        getUnassignedDriversCommand.execute(request, response);
 
-        verify(httpServletRequest).setAttribute("users", singletonList(userDriver));
+        verify(request).setAttribute("users", singletonList(userDriver));
     }
 
     @Test
     public void shouldReturnUnassignedDriversPage() {
         when(userDao.readAllWithoutAssignment()).thenReturn(emptyList());
 
-        String resultPage = getUnassignedDriversCommand.execute(httpServletRequest, httpServletResponse);
+        String resultPage = getUnassignedDriversCommand.execute(request, response);
 
         assertEquals(UNASSIGNED_DRIVERS_PAGE, resultPage);
     }

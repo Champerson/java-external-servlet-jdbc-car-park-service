@@ -22,12 +22,12 @@ public class GetAllBusesCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         List<Bus> buses = busDao.readAll();
         for (Bus bus : buses) {
             bus.setAssignment(assignmentDao.readByBusId(bus.getId()));
         }
-        req.setAttribute("buses", buses);
+        request.setAttribute("buses", buses);
         return ALL_BUSES_PAGE;
     }
 }

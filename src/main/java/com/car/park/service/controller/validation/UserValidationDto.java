@@ -1,5 +1,7 @@
 package com.car.park.service.controller.validation;
 
+import java.util.Objects;
+
 public class UserValidationDto {
 
     private String login;
@@ -157,5 +159,33 @@ public class UserValidationDto {
                 || ageError != null
                 || oldPasswordError != null
                 || newPasswordError != null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserValidationDto that = (UserValidationDto) o;
+        return Objects.equals(login, that.login) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(oldPassword, that.oldPassword) &&
+                Objects.equals(newPassword, that.newPassword) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(phone, that.phone) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(age, that.age) &&
+                Objects.equals(loginError, that.loginError) &&
+                Objects.equals(passwordError, that.passwordError) &&
+                Objects.equals(oldPasswordError, that.oldPasswordError) &&
+                Objects.equals(newPasswordError, that.newPasswordError) &&
+                Objects.equals(emailError, that.emailError) &&
+                Objects.equals(phoneError, that.phoneError) &&
+                Objects.equals(nameError, that.nameError) &&
+                Objects.equals(ageError, that.ageError);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, password, oldPassword, newPassword, email, phone, name, age, loginError, passwordError, oldPasswordError, newPasswordError, emailError, phoneError, nameError, ageError);
     }
 }

@@ -40,26 +40,26 @@ public class EditUserPasswordCommandTest {
     private Command getUserOfficeCommand;
 
     @Mock
-    private HttpServletRequest httpServletRequest;
+    private HttpServletRequest request;
     @Mock
-    private HttpServletResponse httpServletResponse;
+    private HttpServletResponse response;
     @Mock
-    private HttpSession httpSession;
+    private HttpSession session;
     @Mock
     private User user;
 
     @Test
     public void shouldUpdateUserWithNewEncodedPasswordAndCommitTransactionWhenOldPasswordMatch() {
-        when(httpServletRequest.getParameter("oldPassword")).thenReturn(OLD_PASSWORD);
-        when(httpServletRequest.getParameter("newPassword")).thenReturn(NEW_PASSWORD);
+        when(request.getParameter("oldPassword")).thenReturn(OLD_PASSWORD);
+        when(request.getParameter("newPassword")).thenReturn(NEW_PASSWORD);
         when(passwordEncoder.encode(OLD_PASSWORD)).thenReturn(OLD_PASSWORD_ENCODED);
         when(passwordEncoder.encode(NEW_PASSWORD)).thenReturn(NEW_PASSWORD_ENCODED);
-        when(httpServletRequest.getSession()).thenReturn(httpSession);
-        when(httpSession.getAttribute("userId")).thenReturn(USER_ID);
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("userId")).thenReturn(USER_ID);
         when(userDao.read(USER_ID)).thenReturn(user);
         when(user.getPassword()).thenReturn(OLD_PASSWORD_ENCODED);
 
-        editUserPasswordCommand.execute(httpServletRequest, httpServletResponse);
+        editUserPasswordCommand.execute(request, response);
 
         verify(user).setPassword(NEW_PASSWORD_ENCODED);
         verify(userDao).update(user);
@@ -68,31 +68,31 @@ public class EditUserPasswordCommandTest {
 
     @Test
     public void shouldExecuteGetUserOfficeCommandWhenPasswordUpdated() {
-        when(httpServletRequest.getParameter("oldPassword")).thenReturn(OLD_PASSWORD);
-        when(httpServletRequest.getParameter("newPassword")).thenReturn(NEW_PASSWORD);
+        when(request.getParameter("oldPassword")).thenReturn(OLD_PASSWORD);
+        when(request.getParameter("newPassword")).thenReturn(NEW_PASSWORD);
         when(passwordEncoder.encode(OLD_PASSWORD)).thenReturn(OLD_PASSWORD_ENCODED);
         when(passwordEncoder.encode(NEW_PASSWORD)).thenReturn(NEW_PASSWORD_ENCODED);
-        when(httpServletRequest.getSession()).thenReturn(httpSession);
-        when(httpSession.getAttribute("userId")).thenReturn(USER_ID);
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("userId")).thenReturn(USER_ID);
         when(userDao.read(USER_ID)).thenReturn(user);
         when(user.getPassword()).thenReturn(OLD_PASSWORD_ENCODED);
 
-        editUserPasswordCommand.execute(httpServletRequest, httpServletResponse);
+        editUserPasswordCommand.execute(request, response);
 
-        verify(getUserOfficeCommand).execute(httpServletRequest, httpServletResponse);
+        verify(getUserOfficeCommand).execute(request, response);
     }
 
     @Test
     public void shouldExecuteGetUserOfficeCommandWhenPasswordNotUpdated() {
-        when(httpServletRequest.getParameter("oldPassword")).thenReturn(OLD_PASSWORD);
+        when(request.getParameter("oldPassword")).thenReturn(OLD_PASSWORD);
         when(passwordEncoder.encode(OLD_PASSWORD)).thenReturn(OLD_PASSWORD_ENCODED);
-        when(httpServletRequest.getSession()).thenReturn(httpSession);
-        when(httpSession.getAttribute("userId")).thenReturn(USER_ID);
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("userId")).thenReturn(USER_ID);
         when(userDao.read(USER_ID)).thenReturn(user);
         when(user.getPassword()).thenReturn(DIFFERENT_PASSWORD_ENCODED);
 
-        editUserPasswordCommand.execute(httpServletRequest, httpServletResponse);
+        editUserPasswordCommand.execute(request, response);
 
-        verify(getUserOfficeCommand).execute(httpServletRequest, httpServletResponse);
+        verify(getUserOfficeCommand).execute(request, response);
     }
 }

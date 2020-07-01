@@ -40,17 +40,17 @@ public class AuthorizationCommandTest {
     private Command getUserOfficeCommand;
 
     @Mock
-    private HttpServletRequest httpServletRequest;
+    private HttpServletRequest request;
     @Mock
-    private HttpServletResponse httpServletResponse;
+    private HttpServletResponse response;
     @Mock
-    private HttpSession httpSession;
+    private HttpSession session;
     @Mock
     private User user;
 
     @Test
     public void shouldReturnIndexPageWhenNoUserFound() {
-        String resultPage = authorizationCommand.execute(httpServletRequest, httpServletResponse);
+        String resultPage = authorizationCommand.execute(request, response);
 
         assertEquals(INDEX_PAGE, resultPage);
     }
@@ -60,7 +60,7 @@ public class AuthorizationCommandTest {
         when(userDao.read(any())).thenReturn(user);
         when(user.getPassword()).thenReturn(USER_PASSWORD);
 
-        String resultPage = authorizationCommand.execute(httpServletRequest, httpServletResponse);
+        String resultPage = authorizationCommand.execute(request, response);
 
         assertEquals(INDEX_PAGE, resultPage);
     }
@@ -71,13 +71,13 @@ public class AuthorizationCommandTest {
         when(userDao.read(any())).thenReturn(user);
         when(user.getPassword()).thenReturn(USER_PASSWORD);
         when(user.getId()).thenReturn(USER_ID);
-        when(httpServletRequest.getSession(true)).thenReturn(httpSession);
-        when(httpServletRequest.getParameter("login")).thenReturn(USER_LOGIN);
-        when(httpServletRequest.getParameter("password")).thenReturn(USER_PASSWORD);
+        when(request.getSession(true)).thenReturn(session);
+        when(request.getParameter("login")).thenReturn(USER_LOGIN);
+        when(request.getParameter("password")).thenReturn(USER_PASSWORD);
 
-        authorizationCommand.execute(httpServletRequest, httpServletResponse);
+        authorizationCommand.execute(request, response);
 
-        verify(httpSession).setAttribute("userId", USER_ID);
+        verify(session).setAttribute("userId", USER_ID);
     }
 
     @Test
@@ -86,11 +86,11 @@ public class AuthorizationCommandTest {
         when(userDao.read(any())).thenReturn(user);
         when(user.getPassword()).thenReturn(USER_PASSWORD);
         when(user.getId()).thenReturn(USER_ID);
-        when(httpServletRequest.getSession(true)).thenReturn(httpSession);
-        when(httpServletRequest.getParameter("login")).thenReturn(USER_LOGIN);
-        when(httpServletRequest.getParameter("password")).thenReturn(USER_PASSWORD);
+        when(request.getSession(true)).thenReturn(session);
+        when(request.getParameter("login")).thenReturn(USER_LOGIN);
+        when(request.getParameter("password")).thenReturn(USER_PASSWORD);
 
-        String resultPage = authorizationCommand.execute(httpServletRequest, httpServletResponse);
+        String resultPage = authorizationCommand.execute(request, response);
 
         assertEquals(INDEX_PAGE, resultPage);
     }
@@ -101,9 +101,9 @@ public class AuthorizationCommandTest {
         when(userDao.read(any())).thenReturn(user);
         when(user.getPassword()).thenReturn(USER_PASSWORD);
         when(user.getId()).thenReturn(USER_ID);
-        when(httpServletRequest.getSession(true)).thenReturn(httpSession);
+        when(request.getSession(true)).thenReturn(session);
 
-        String resultPage = authorizationCommand.execute(httpServletRequest, httpServletResponse);
+        String resultPage = authorizationCommand.execute(request, response);
 
         assertEquals(INDEX_PAGE, resultPage);
     }
@@ -115,11 +115,11 @@ public class AuthorizationCommandTest {
         when(user.getPassword()).thenReturn(USER_PASSWORD);
         when(user.getId()).thenReturn(USER_ID);
         when(user.getAccessRole()).thenReturn(ROLE_ADMIN);
-        when(httpServletRequest.getSession(true)).thenReturn(httpSession);
-        when(httpServletRequest.getParameter("login")).thenReturn(USER_LOGIN);
-        when(httpServletRequest.getParameter("password")).thenReturn(USER_PASSWORD);
+        when(request.getSession(true)).thenReturn(session);
+        when(request.getParameter("login")).thenReturn(USER_LOGIN);
+        when(request.getParameter("password")).thenReturn(USER_PASSWORD);
 
-        String resultPage = authorizationCommand.execute(httpServletRequest, httpServletResponse);
+        String resultPage = authorizationCommand.execute(request, response);
 
         assertEquals(ADMIN_MENU_PAGE, resultPage);
     }
@@ -131,12 +131,12 @@ public class AuthorizationCommandTest {
         when(user.getPassword()).thenReturn(USER_PASSWORD);
         when(user.getId()).thenReturn(USER_ID);
         when(user.getAccessRole()).thenReturn(ROLE_DRIVER);
-        when(httpServletRequest.getSession(true)).thenReturn(httpSession);
-        when(httpServletRequest.getParameter("login")).thenReturn(USER_LOGIN);
-        when(httpServletRequest.getParameter("password")).thenReturn(USER_PASSWORD);
+        when(request.getSession(true)).thenReturn(session);
+        when(request.getParameter("login")).thenReturn(USER_LOGIN);
+        when(request.getParameter("password")).thenReturn(USER_PASSWORD);
 
-        authorizationCommand.execute(httpServletRequest, httpServletResponse);
+        authorizationCommand.execute(request, response);
 
-        verify(getUserOfficeCommand).execute(httpServletRequest, httpServletResponse);
+        verify(getUserOfficeCommand).execute(request, response);
     }
 }

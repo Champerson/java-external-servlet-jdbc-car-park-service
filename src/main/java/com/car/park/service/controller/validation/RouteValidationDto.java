@@ -1,5 +1,7 @@
 package com.car.park.service.controller.validation;
 
+import java.util.Objects;
+
 public class RouteValidationDto {
 
     private String number;
@@ -81,5 +83,25 @@ public class RouteValidationDto {
                 || lengthError != null
                 || descriptionEnError != null
                 || descriptionUaError != null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RouteValidationDto that = (RouteValidationDto) o;
+        return Objects.equals(number, that.number) &&
+                Objects.equals(length, that.length) &&
+                Objects.equals(descriptionEn, that.descriptionEn) &&
+                Objects.equals(descriptionUa, that.descriptionUa) &&
+                Objects.equals(numberError, that.numberError) &&
+                Objects.equals(lengthError, that.lengthError) &&
+                Objects.equals(descriptionEnError, that.descriptionEnError) &&
+                Objects.equals(descriptionUaError, that.descriptionUaError);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, length, descriptionEn, descriptionUa, numberError, lengthError, descriptionEnError, descriptionUaError);
     }
 }

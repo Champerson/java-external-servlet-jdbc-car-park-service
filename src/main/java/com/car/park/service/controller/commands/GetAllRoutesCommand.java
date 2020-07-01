@@ -22,12 +22,12 @@ public class GetAllRoutesCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         List<Route> routes = routeDao.readAll();
         for (Route route : routes) {
             route.setAssignments(assignmentDao.readByRouteId(route.getId()));
         }
-        req.setAttribute("routes", routes);
+        request.setAttribute("routes", routes);
         return ALL_ROUTES_PAGE;
     }
 }

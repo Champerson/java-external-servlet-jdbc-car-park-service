@@ -1,5 +1,7 @@
 package com.car.park.service.controller.validation;
 
+import java.util.Objects;
+
 public class BusValidationDto {
 
     private String number;
@@ -157,5 +159,33 @@ public class BusValidationDto {
                 || colourUaError != null
                 || notesEnError != null
                 || notesUaError != null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BusValidationDto that = (BusValidationDto) o;
+        return Objects.equals(number, that.number) &&
+                Objects.equals(model, that.model) &&
+                Objects.equals(passengersCapacity, that.passengersCapacity) &&
+                Objects.equals(mileage, that.mileage) &&
+                Objects.equals(colourEn, that.colourEn) &&
+                Objects.equals(colourUa, that.colourUa) &&
+                Objects.equals(notesEn, that.notesEn) &&
+                Objects.equals(notesUa, that.notesUa) &&
+                Objects.equals(numberError, that.numberError) &&
+                Objects.equals(modelError, that.modelError) &&
+                Objects.equals(passengersCapacityError, that.passengersCapacityError) &&
+                Objects.equals(mileageError, that.mileageError) &&
+                Objects.equals(colourEnError, that.colourEnError) &&
+                Objects.equals(colourUaError, that.colourUaError) &&
+                Objects.equals(notesEnError, that.notesEnError) &&
+                Objects.equals(notesUaError, that.notesUaError);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, model, passengersCapacity, mileage, colourEn, colourUa, notesEn, notesUa, numberError, modelError, passengersCapacityError, mileageError, colourEnError, colourUaError, notesEnError, notesUaError);
     }
 }

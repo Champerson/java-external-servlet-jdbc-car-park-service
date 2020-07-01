@@ -40,26 +40,26 @@ public class CreateAssignmentForBusCommandTest {
     private Command getRouteDetailsCommand;
 
     @Mock
-    private HttpServletRequest httpServletRequest;
+    private HttpServletRequest request;
     @Mock
-    private HttpServletResponse httpServletResponse;
+    private HttpServletResponse response;
 
     @Test
     public void shouldExecuteGetRouteDetailsCommand() {
-        when(httpServletRequest.getParameter("busId")).thenReturn(valueOf(BUS_ID));
-        when(httpServletRequest.getParameter("routeId")).thenReturn(valueOf(ROUTE_ID));
+        when(request.getParameter("busId")).thenReturn(valueOf(BUS_ID));
+        when(request.getParameter("routeId")).thenReturn(valueOf(ROUTE_ID));
 
-        createAssignmentForBusCommand.execute(httpServletRequest, httpServletResponse);
+        createAssignmentForBusCommand.execute(request, response);
 
-        verify(getRouteDetailsCommand).execute(httpServletRequest, httpServletResponse);
+        verify(getRouteDetailsCommand).execute(request, response);
     }
 
     @Test
     public void shouldCreateAssignment() {
-        when(httpServletRequest.getParameter("busId")).thenReturn(valueOf(BUS_ID));
-        when(httpServletRequest.getParameter("routeId")).thenReturn(valueOf(ROUTE_ID));
+        when(request.getParameter("busId")).thenReturn(valueOf(BUS_ID));
+        when(request.getParameter("routeId")).thenReturn(valueOf(ROUTE_ID));
 
-        createAssignmentForBusCommand.execute(httpServletRequest, httpServletResponse);
+        createAssignmentForBusCommand.execute(request, response);
 
         verify(busDao).read(BUS_ID);
         verify(routeDao).read(ROUTE_ID);
@@ -68,10 +68,10 @@ public class CreateAssignmentForBusCommandTest {
 
     @Test
     public void shouldCommitTransaction() {
-        when(httpServletRequest.getParameter("busId")).thenReturn(valueOf(BUS_ID));
-        when(httpServletRequest.getParameter("routeId")).thenReturn(valueOf(ROUTE_ID));
+        when(request.getParameter("busId")).thenReturn(valueOf(BUS_ID));
+        when(request.getParameter("routeId")).thenReturn(valueOf(ROUTE_ID));
 
-        createAssignmentForBusCommand.execute(httpServletRequest, httpServletResponse);
+        createAssignmentForBusCommand.execute(request, response);
 
         verify(transactionManager).commit();
     }
