@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * This command is responsible for Route creation. It handles incoming parameters and validate them, so
+ * in case of valid values creates new Route, otherwise it sets RouteValidationDto to request
+ * and returns to NEW_ROUTE_PAGE
+ */
 public class CreateNewRouteCommand implements Command {
 
     private static final String NEW_ROUTE_PAGE = "WEB-INF/jsp/admin-route-create-page.jsp";

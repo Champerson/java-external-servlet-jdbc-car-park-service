@@ -5,6 +5,9 @@ import com.car.park.service.controller.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This command is responsible for redirect to pages indicated in request
+ */
 public class RedirectCommand implements Command {
 
     @Override

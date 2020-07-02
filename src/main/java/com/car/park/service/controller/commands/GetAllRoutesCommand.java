@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * This command shows all Routes from database on ALL_ROUTES_PAGE
+ */
 public class GetAllRoutesCommand implements Command {
 
     private static final String ALL_ROUTES_PAGE = "WEB-INF/jsp/admin-route-all-page.jsp";

@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Long.parseLong;
 
+/**
+ * This command deletes Route and it's Assignments if exist
+ */
 public class DeleteRouteCommand implements Command {
 
     private final RouteDao routeDao;

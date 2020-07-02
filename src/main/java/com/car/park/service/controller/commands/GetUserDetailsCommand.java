@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Long.parseLong;
 
+/**
+ * This command shows User info on USER_INFO_PAGE
+ */
 public class GetUserDetailsCommand implements Command {
 
     private static final String USER_INFO_PAGE = "WEB-INF/jsp/admin-user-details-page.jsp";

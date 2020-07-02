@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import static com.car.park.service.controller.CommandMapping.Commands.EDIT_BUS;
 import static java.lang.Long.parseLong;
 
+/**
+ * This command shows Bus info on BUS_INFO_PAGE
+ */
 public class GetBusDetailsCommand implements Command {
 
     private static final String BUS_INFO_PAGE = "WEB-INF/jsp/admin-bus-details-page.jsp";

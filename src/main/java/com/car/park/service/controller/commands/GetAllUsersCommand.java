@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * This command shows all Users from database on ALL_USERS_PAGE
+ */
 public class GetAllUsersCommand implements Command {
 
     private static final String ALL_USERS_PAGE = "WEB-INF/jsp/admin-user-all-page.jsp";

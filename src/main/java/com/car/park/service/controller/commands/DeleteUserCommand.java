@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Long.parseLong;
 
+/**
+ * This command deletes User and updates it's Assignment if exist removing User from it
+ */
 public class DeleteUserCommand implements Command {
 
     private final UserDao userDao;

@@ -6,6 +6,9 @@ import com.car.park.service.dao.BusDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This command shows all Buses available for assignment on UNASSIGNED_BUSES_PAGE
+ */
 public class GetUnassignedBusesCommand implements Command {
 
     private static final String UNASSIGNED_BUSES_PAGE = "WEB-INF/jsp/admin-route-assign-bus-page.jsp";

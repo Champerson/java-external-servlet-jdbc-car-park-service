@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * This command updates Assignment of concrete User
+ */
 public class EditUserAssignmentAcceptCommand implements Command {
 
     private final UserDao userDao;

@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Long.parseLong;
 
+/**
+ * This command is responsible for User update. It updates UserRole by incoming parameter and
+ * returns to user details page
+ */
 public class EditUserRoleCommand implements Command {
 
     private final UserDao userDao;

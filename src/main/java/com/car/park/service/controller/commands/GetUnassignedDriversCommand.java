@@ -11,6 +11,9 @@ import java.util.List;
 import static com.car.park.service.model.UserRole.ROLE_DRIVER;
 import static java.util.stream.Collectors.toList;
 
+/**
+ * This command shows all Users available for Assignment on UNASSIGNED_DRIVERS_PAGE
+ */
 public class GetUnassignedDriversCommand implements Command {
 
     private static final String UNASSIGNED_DRIVERS_PAGE = "WEB-INF/jsp/admin-route-assign-driver-page.jsp";

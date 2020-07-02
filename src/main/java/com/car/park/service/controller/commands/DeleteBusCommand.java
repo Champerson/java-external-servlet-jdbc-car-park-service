@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Long.parseLong;
 
+/**
+ * This command deletes Bus and it's Assignment if exist
+ */
 public class DeleteBusCommand implements Command {
 
     private final BusDao busDao;

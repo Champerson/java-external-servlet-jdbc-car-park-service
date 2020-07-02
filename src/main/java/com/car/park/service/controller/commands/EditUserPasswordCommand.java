@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * This command is responsible for User password update. It handles incoming parameters and validate them, so
+ * in case of valid values updates User, otherwise it sets UserValidationDto
+ * to request and in both cases returns to USER_OFFICE_PAGE
+ */
 public class EditUserPasswordCommand implements Command {
 
     private final UserDao userDao;

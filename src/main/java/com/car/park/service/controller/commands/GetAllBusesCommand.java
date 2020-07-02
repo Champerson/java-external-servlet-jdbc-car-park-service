@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * This command shows all Buses from database on ALL_BUSES_PAGE
+ */
 public class GetAllBusesCommand implements Command {
 
     private static final String ALL_BUSES_PAGE = "WEB-INF/jsp/admin-bus-all-page.jsp";

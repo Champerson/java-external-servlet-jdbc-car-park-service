@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * This command is responsible for Bus creation. It handles incoming parameters and validate them, so
+ * in case of valid values creates new Bus, otherwise it sets BusValidationDto to request and returns to NEW_BUS_PAGE
+ */
 public class CreateNewBusCommand implements Command {
 
     private static final String NEW_BUS_PAGE = "WEB-INF/jsp/admin-bus-create-page.jsp";

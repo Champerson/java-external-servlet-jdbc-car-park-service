@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.car.park.service.controller.CommandMapping.Commands.*;
 
+/**
+ * This command is responsible for driver office page
+ */
 public class GetUserOfficeCommand implements Command {
 
     private static final String USER_OFFICE_PAGE = "WEB-INF/jsp/user-office-page.jsp";

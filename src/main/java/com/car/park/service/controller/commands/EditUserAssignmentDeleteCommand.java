@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import static java.lang.Long.parseLong;
 
 
+/**
+ * This command updates Assignment clearing all User information from it
+ */
 public class EditUserAssignmentDeleteCommand implements Command {
 
     private final AssignmentDao assignmentDao;

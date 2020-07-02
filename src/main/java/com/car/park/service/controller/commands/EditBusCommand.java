@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
+/**
+ * This command is responsible for Bus update. It handles incoming parameters and validate them, so
+ * in case of valid values updates Bus, otherwise it sets BusValidationDto to request and in any case
+ * it returns to bus details page
+ */
 public class EditBusCommand implements Command {
 
     private final BusDao busDao;

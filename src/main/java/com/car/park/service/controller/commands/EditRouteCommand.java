@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
+/**
+ * This command is responsible for Route update. It handles incoming parameters and validate them, so
+ * in case of valid values updates Route, otherwise it sets RouteValidationDto to request and in any case
+ * it returns to route details page
+ */
 public class EditRouteCommand implements Command {
 
     private final RouteDao routeDao;

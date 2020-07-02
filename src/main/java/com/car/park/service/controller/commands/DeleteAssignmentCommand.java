@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Long.parseLong;
 
+/**
+ * This command deletes Assignment
+ */
 public class DeleteAssignmentCommand implements Command {
 
     private final AssignmentDao assignmentDao;

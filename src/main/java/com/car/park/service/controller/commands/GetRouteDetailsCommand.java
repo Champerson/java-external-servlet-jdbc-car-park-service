@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import static com.car.park.service.controller.CommandMapping.Commands.EDIT_ROUTE;
 import static java.lang.Long.parseLong;
 
+/**
+ * This command shows Route info on ROUTE_INFO_PAGE
+ */
 public class GetRouteDetailsCommand implements Command {
 
     private static final String ROUTE_INFO_PAGE = "WEB-INF/jsp/admin-route-details-page.jsp";

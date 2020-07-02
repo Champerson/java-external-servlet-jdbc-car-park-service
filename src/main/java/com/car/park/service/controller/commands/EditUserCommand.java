@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * This command is responsible for User info update. It handles incoming parameters and validate them, so
+ * in case of valid values updates User, otherwise it sets UserValidationDto
+ * to request and in both cases returns to USER_OFFICE_PAGE
+ */
 public class EditUserCommand implements Command {
 
     private static final String USER_OFFICE_PAGE = "WEB-INF/jsp/user-office-page.jsp";
